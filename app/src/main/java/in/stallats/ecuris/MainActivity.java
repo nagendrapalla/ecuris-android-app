@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import in.stallats.ecuris.Adapters.MedOrders;
+import in.stallats.ecuris.Common.AreaDetectorActivity;
 import in.stallats.ecuris.Common.NoInternetActivity;
 import in.stallats.ecuris.Personal.ReferActivity;
 import in.stallats.ecuris.Supporting.AbsRuntimePermissions;
@@ -97,6 +98,12 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         cd = new ConnectionDetector(this);
         if (!cd.isConnected()) {
             startActivity(new Intent(this, NoInternetActivity.class));
+        }
+
+        session = new Session(this);
+        String appPincode = session.getPincode();
+        if(appPincode == null){
+            startActivity(new Intent(this, AreaDetectorActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -159,8 +166,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setVoiceSearch(false);
         searchView.setEllipsize(true);
-        //searchView.setSuggestions(toppings);
-        searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
+        searchView.setSuggestions(toppings);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -222,7 +228,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        session = new Session(this);
         if (!session.loggedin()) {
             session.set_CartCount("0");
         } else {
@@ -265,8 +270,15 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_cart) {
-            startActivity(new Intent(this, CartActivity.class));
+
+        switch (id){
+            case R.id.nav_cart:
+                startActivity(new Intent(this, CartActivity.class));
+                break;
+
+            case R.id.nav_pincode:
+                startActivity(new Intent(this, AreaDetectorActivity.class));
+                break;
         }
 
         return super.onOptionsItemSelected(item);

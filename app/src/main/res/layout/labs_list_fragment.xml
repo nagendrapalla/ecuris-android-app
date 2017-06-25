@@ -26,7 +26,7 @@
             android:layout_weight="0.7"
             android:orientation="vertical">
 
-            <com.android.volley.toolbox.NetworkImageView
+            <ImageView
                 android:id="@+id/offers_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -4,10 +4,12 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +19,8 @@ import java.util.List;
 
 import in.stallats.ecuris.R;
 import in.stallats.ecuris.Supporting.CustomVolleyRequestQueue;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by User on 04-Jun-17.
@@ -53,9 +57,10 @@ public class LabsListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View v = View.inflate(context, R.layout.labs_list_fragment, null);
 
-        NetworkImageView niv = (NetworkImageView) v.findViewById(R.id.offers_image);
-        mImageLoader.get(mLabsList.get(i).getOffer_name(), ImageLoader.getImageListener(niv, R.drawable.loader, R.mipmap.ic_launcher));
-        niv.setImageUrl(mLabsList.get(i).getOffer_name(), mImageLoader);
+        ImageView niv = (ImageView) v.findViewById(R.id.offers_image);
+        Picasso.with(getApplicationContext()).load(mLabsList.get(i).getOffer_name()).into(niv);
+        //mImageLoader.get(mLabsList.get(i).getOffer_name(), ImageLoader.getImageListener(niv, R.drawable.loader, R.mipmap.ic_launcher));
+        //niv.setImageUrl(mLabsList.get(i).getOffer_name(), mImageLoader);
 
         String image1 = "", image2 = "", image3 = "", image4 = "", image5 = "";
 

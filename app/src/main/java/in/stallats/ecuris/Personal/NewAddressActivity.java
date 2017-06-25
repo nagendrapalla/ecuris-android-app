@@ -44,6 +44,8 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         ad_full_name = (EditText) findViewById(R.id.ad_full_name);
         ad_mobile_number = (EditText) findViewById(R.id.ad_mobile_number);
         ad_pincode = (EditText) findViewById(R.id.ad_pincode);
+        ad_pincode.setText(session.getPincode());
+        ad_pincode.setEnabled(false);
         ad_building = (EditText) findViewById(R.id.ad_building);
         ad_street = (EditText) findViewById(R.id.ad_street);
         ad_landmark = (EditText) findViewById(R.id.ad_landmark);

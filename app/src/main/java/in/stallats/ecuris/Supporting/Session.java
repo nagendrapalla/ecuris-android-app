@@ -15,7 +15,7 @@ public class Session {
 
     public Session(Context ctx) {
         this.ctx = ctx;
-        prefs = ctx.getSharedPreferences("deals4u", Context.MODE_PRIVATE);
+        prefs = ctx.getSharedPreferences("ecuris", Context.MODE_PRIVATE);
         editor = prefs.edit();
     }
 
@@ -27,6 +27,17 @@ public class Session {
     public boolean loggedin() {
         return prefs.getBoolean("loggedinmode", false);
     }
+
+
+    public void setPincode(String pincode) {
+        editor.putString("areacode", pincode);
+        editor.commit();
+    }
+
+    public String getPincode() {
+        return prefs.getString("areacode", null);
+    }
+
 
     public void appOpenTimes(String count) {
         editor.putString("openCount", count);
