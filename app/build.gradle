@@ -11,6 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -25,7 +26,7 @@ configurations.all {
         def requested = details.requested
         if (requested.group == 'com.android.support') {
             if (!requested.name.startsWith("multidex")) {
-                details.useVersion '25.3.1'
+                details.useVersion '25.3.0'
             }
         }
     }
@@ -38,7 +39,6 @@ dependencies {
     })
     compile files('libs/PhotoUtil.jar')
     compile files('libs/GenAsync.jar')
-    compile files('libs/gson-2.2.4.jar')
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support:design:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -52,7 +52,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
-    compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.android.support:support-vector-drawable:25.3.0'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     testCompile 'junit:junit:4.12'
 }
