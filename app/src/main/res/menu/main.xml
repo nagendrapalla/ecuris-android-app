@@ -6,6 +6,7 @@
         android:icon="@drawable/ic_search"
         app:showAsAction="always"
         android:title="SEARCH" />
+
     <!--<item-->
         <!--android:id="@+id/nav_notifications"-->
         <!--android:icon="@drawable/ic_notifications"-->

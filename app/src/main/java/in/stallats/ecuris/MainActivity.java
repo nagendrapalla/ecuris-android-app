@@ -30,6 +30,7 @@ import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
@@ -48,6 +49,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
     Session session;
     private static final int REQUEST_PERMISSION = 10;
     String cart_cnt_num = "0";
+    MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +59,8 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setIcon(R.mipmap.f_logo2); //also displays wide logo
-        getSupportActionBar().setDisplayShowTitleEnabled(false); //optional
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
 
         requestAppPermissions(new String[]{
@@ -105,6 +106,34 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         home_doct.setOnClickListener(this);
         home_help.setOnClickListener(this);
         home_ord.setOnClickListener(this);
+
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Do some magic
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
 
     }
 
@@ -165,6 +194,9 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         MenuItem itemCart = menu.findItem(R.id.nav_cart);
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
         setBadgeCount(this, icon, cart_cnt_num);
+
+        MenuItem item = menu.findItem(R.id.nav_search);
+        searchView.setMenuItem(item);
 
         return true;
     }
