@@ -7,12 +7,6 @@
         app:showAsAction="always"
         android:title="SEARCH" />
 
-    <!--<item-->
-        <!--android:id="@+id/nav_notifications"-->
-        <!--android:icon="@drawable/ic_notifications"-->
-        <!--app:showAsAction="always"-->
-        <!--android:title="NOTIFICATIONS" />-->
-
     <item
         android:id="@+id/nav_cart"
         android:icon="@drawable/ic_menu_cart"

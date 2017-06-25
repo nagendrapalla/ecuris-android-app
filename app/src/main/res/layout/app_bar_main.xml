@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/container"
     tools:context="in.stallats.ecuris.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -24,6 +26,7 @@
                 android:background="?attr/colorPrimary"
                 android:gravity="left"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:layout_scrollFlags="scroll|enterAlways"
                 android:titleTextColor="@color/colorAccent">
 
                 <ImageView
@@ -41,6 +44,7 @@
             <com.miguelcatalan.materialsearchview.MaterialSearchView
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
+                style="@style/MaterialSearchViewStyle"
                 android:layout_height="wrap_content" />
 
         </FrameLayout>

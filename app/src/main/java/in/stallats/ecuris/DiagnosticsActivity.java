@@ -110,6 +110,9 @@ public class DiagnosticsActivity extends AppCompatActivity {
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
         setBadgeCount(this, icon, cart_cnt_num);
 
+        MenuItem search_item = menu.findItem(R.id.nav_search);
+        search_item.setVisible(false);
+
         return true;
     }
 

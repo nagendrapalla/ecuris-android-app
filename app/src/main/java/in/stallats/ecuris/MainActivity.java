@@ -1,16 +1,12 @@
 package in.stallats.ecuris;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +14,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,21 +21,39 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
-import java.util.HashMap;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.sql.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import in.stallats.ecuris.Adapters.MedOrders;
 import in.stallats.ecuris.Common.NoInternetActivity;
 import in.stallats.ecuris.Personal.ReferActivity;
 import in.stallats.ecuris.Supporting.AbsRuntimePermissions;
 import in.stallats.ecuris.Supporting.BagdeDrawable;
 import in.stallats.ecuris.Supporting.ConnectionDetector;
+import in.stallats.ecuris.Supporting.MySingleton;
 import in.stallats.ecuris.Supporting.Session;
 
 public class MainActivity extends AbsRuntimePermissions implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -50,6 +63,8 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
     private static final int REQUEST_PERMISSION = 10;
     String cart_cnt_num = "0";
     MaterialSearchView searchView;
+    String[] toppings = {};
+    List<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +107,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        
         getImages();
 
         CardView home_med = (CardView) findViewById(R.id.home_med);
@@ -107,12 +122,49 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         home_help.setOnClickListener(this);
         home_ord.setOnClickListener(this);
 
-        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        ArrayList<String> titles_arr = new ArrayList<String>();
 
+        try {
+            JsonArray test_json = Ion.with(this).load("http://portal.ecuris.in/api/tests_all/").asJsonArray().get();
+            for (int i = 0; i < test_json.size(); i++) {
+                String x = test_json.get(i).toString();
+                try {
+                    final JSONObject xx = new JSONObject(x);
+                    titles_arr.add(xx.getString("title"));
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+            JsonArray package_json = Ion.with(this).load("http://portal.ecuris.in/api/packages/").asJsonArray().get();
+            for (int i = 0; i < package_json.size(); i++) {
+                String x = package_json.get(i).toString();
+                try {
+                    final JSONObject xx = new JSONObject(x);
+                    titles_arr.add(xx.getString("package_title"));
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        toppings = new String[titles_arr.size()];
+        toppings = titles_arr.toArray(toppings);
+
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setVoiceSearch(false);
+        searchView.setEllipsize(true);
+        //searchView.setSuggestions(toppings);
+        searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Do some magic
+                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
                 return false;
             }
 
@@ -126,7 +178,8 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-                //Do some magic
+                searchView.showSearch(true);
+                searchView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -136,6 +189,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         });
 
     }
+
 
     @Override
     public void onPermissionsGranted(int requestCode) {
@@ -154,6 +208,12 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
         } else {
             super.onBackPressed();
         }
@@ -195,12 +255,11 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
         setBadgeCount(this, icon, cart_cnt_num);
 
-        MenuItem item = menu.findItem(R.id.nav_search);
-        searchView.setMenuItem(item);
+        MenuItem searchItem = menu.findItem(R.id.nav_search);
+        searchView.setMenuItem(searchItem);
 
         return true;
     }
-
 
 
     @Override
@@ -209,9 +268,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         if (id == R.id.nav_cart) {
             startActivity(new Intent(this, CartActivity.class));
         }
-//        else if(id == R.id.nav_search){
-//            startActivity(new Intent(this, SearchActivity.class));
-//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -224,7 +280,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
             startActivity(new Intent(this, MedicineActivity.class));
         } else if (id == R.id.nav_refer) {
             startActivity(new Intent(this, ReferActivity.class));
-        }else if (id == R.id.nav_diagnostics) {
+        } else if (id == R.id.nav_diagnostics) {
             startActivity(new Intent(this, DiagnosticsActivity.class));
         } else if (id == R.id.nav_account) {
             startActivity(new Intent(this, AccountActivity.class));
@@ -247,7 +303,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.home_med:
                 startActivity(new Intent(this, MedicineActivity.class));
                 break;
@@ -267,7 +323,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         }
     }
 
-    public void getImages(){
+    public void getImages() {
         final ImageView offer_image_1 = (ImageView) findViewById(R.id.offer_img_1);
         final ImageView offer_image_2 = (ImageView) findViewById(R.id.offer_img_2);
         final ImageView offer_image_3 = (ImageView) findViewById(R.id.offer_img_3);
@@ -286,43 +342,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         Picasso.with(getApplicationContext()).load("http://amyfournier.com/wp-content/uploads/Womens-Health-and-Fitness-Mag-Cover-Feature-Article-Feb-2014-Copy_Page_1.jpg").into(offer_image_6);
         Picasso.with(getApplicationContext()).load("http://www.mandjchickens.com.au/images-news/Food-Magazine-June-July-2013-Article.jpg").into(offer_image_7);
         Picasso.with(getApplicationContext()).load("http://www.health-goji-juice.com/images/goji-intouch.jpg").into(offer_image_8);
-
-//        //Offer Images
-//        new DownloadImageTask(offer_image_1).execute("");
-//        new DownloadImageTask(offer_image_2).execute("");
-//        new DownloadImageTask(offer_image_3).execute("");
-//        new DownloadImageTask(offer_image_4).execute("");
-//
-//        // Article Images
-//        new DownloadImageTask(offer_image_5).execute("");
-//        new DownloadImageTask(offer_image_6).execute("");
-//        new DownloadImageTask(offer_image_7).execute("");
-//        new DownloadImageTask(offer_image_8).execute("");
-    }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
     }
 
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
