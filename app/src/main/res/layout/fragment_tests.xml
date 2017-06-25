@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D1D1D1"
+    tools:context="in.stallats.ecuris.diagnostics.LabsFrament">
+
+    <RelativeLayout
+        android:id="@+id/loadingPanel2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tests_list"
+        android:divider="#D1D1D1"
+        android:dividerHeight="1dp"
+        android:layout_gravity="center_horizontal|top" />
+
+</FrameLayout>

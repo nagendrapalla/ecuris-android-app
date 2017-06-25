@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="in.stallats.ecuris.AccountActivity"
+    android:background="#EEE">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="20dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageButton15"
+                    android:src="@mipmap/logo_color"
+                    android:background="#00ffffff"
+                    android:clickable="false"
+                    android:scaleType="fitCenter" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Prevention is better than Cure"
+                    android:textAllCaps="true"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:textColor="#555"
+                    android:id="@+id/about_text4" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Awareness is the key to live healthy"
+                    android:textAllCaps="true"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:textColor="#555"
+                    android:id="@+id/about_text5" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="About E - CURIS"
+                                android:textAllCaps="true"
+                                android:textSize="16dp"
+                                android:textColor="#999"
+                                android:id="@+id/about_text3" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Our Mission is to bring dedicated healthcare services within the reach to every citizen and making healthcare more transparent, creating awareness of all investigations (Blood investigations, Radiology and Cardiology etc.,) with their benefits."
+                                android:textSize="13dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Our Moto is to make healthcare under one flat from and making it “AAQ” - Affordable, Accessible and Quality to every citizen with the best technology on finger tips with a single click away and will make you to take very wise planning precisely with our “ECURIS APP”."
+                                android:textSize="13dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text2" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Practical Challenge"
+                                android:textAllCaps="true"
+                                android:textSize="16dp"
+                                android:textColor="#999"
+                                android:id="@+id/about_text8" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Now a day’s moving around for medicine purchase is becoming very difficult with the traffic and after visiting pharmacy availability of all medicine brands and quantity in one place is big challenge and then will keep on move to another and another pharmacy."
+                                android:textSize="13dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text9" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="To cut down these difficulties we have created very simple and precise technology where with a single click we can order your medicine from anywhere and get free home delivery with attractive discount for you and your loved ones. "
+                                android:textSize="13dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text10" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Medicine order on finger Tips from anywhere to you and Your Loved ones"
+                                android:textSize="20dp"
+                                android:textColor="#888"
+                                android:textAlignment="center"
+                                android:textStyle="bold"
+                                android:id="@+id/about_text100" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Our mission is to create more awareness about medicine and their uses to all our citizens with the best technology in removing all barriers of travelling and time  in purchasing your daily medicine and make you happy and healthy."
+                                android:textSize="13dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text120" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Our aim is to make healthcare very precise and transparent with cost effective with the option of “alternatives” with the same composition."
+                                android:textSize="13dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text1120" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="We all must aware that composition or molecule of medicine with the same dosage or strength is very important not the brand names."
+                                android:textSize="13dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text110" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="OUR TEAM"
+                                android:textAllCaps="true"
+                                android:textSize="16dp"
+                                android:textColor="#999"
+                                android:id="@+id/about_text80" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="E. Srinivasulu"
+                                android:textSize="14dp"
+                                android:textColor="#aaa"
+                                android:textAllCaps="true"
+                                android:textStyle="bold"
+                                android:id="@+id/about_text039" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="He has got  hands on 18 years of experience in healthcare ( Hospitals and Diagnostics Services). He always thinks to provide be best healthcare services with passion and dedication. He always helps many people in guiding to plan cost effective healthcare services. "
+                                android:textSize="14dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text39" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sudheer K"
+                                android:textSize="14dp"
+                                android:textColor="#aaa"
+                                android:textAllCaps="true"
+                                android:textStyle="bold"
+                                android:id="@+id/about_text139" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="He has got hands on 12 Years of Information Technology experience. He always thinks to connect information technology with healthcare to make it on finger tips very precisely and transparent with passion and dedication."
+                                android:textSize="14dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text329" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="B Shyam Kumar"
+                                android:textSize="14dp"
+                                android:textColor="#aaa"
+                                android:textAllCaps="true"
+                                android:textStyle="bold"
+                                android:id="@+id/about_text1039" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="He has got hands on 15 years of experience in health care services. He is highly dedicated in his profession and gives lot of service to the public with passion and dedication."
+                                android:textSize="14dp"
+                                android:textColor="#BBB"
+                                android:textStyle="italic"
+                                android:id="@+id/about_text3029" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Investors : Virtus Pharmaceuticals Pvt Ltd"
+                                android:textSize="14dp"
+                                android:textColor="#777"
+                                android:textAllCaps="true"
+                                android:textStyle="bold"
+                                android:id="@+id/about_text10309" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

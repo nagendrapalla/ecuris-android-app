@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#EEE"
+    android:elevation="2dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="12sp"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text="ORDER ID : "
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+
+                    <TextView
+                        android:id="@+id/med_order_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="12sp"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text="XXXXXXXX"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp"
+                        android:typeface="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text="Prescription : "
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+
+                    <TextView
+                        android:id="@+id/med_order_presc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text="Yes"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="12sp"
+                        android:typeface="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text="Order Status :"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+
+                    <TextView
+                        android:id="@+id/med_order_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text=" PAID"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="12sp"
+                        android:typeface="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text="Billed Time : "
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+                    <TextView
+                        android:id="@+id/med_order_billed_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="2dp"
+                        android:paddingTop="2dp"
+                        android:text="28-08-2017 12:05:53 PM"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="12sp"
+                        android:typeface="normal" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingLeft="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_right_arrow"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="in.stallats.ecuris">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.Camera"
+        android:required="true" />
+
+    <application
+        android:name=".Supporting.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value" />
+
+        <activity
+            android:name=".Common.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Common Activities Start -->
+        <activity
+            android:name=".Common.NoInternetActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Common.IntroActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Common.LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Common.ForgotPasswordActivity"
+            android:label="Forgot Password"
+            android:parentActivityName=".Common.LoginActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Common.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".Common.RegisterActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Common.SuccessActivity"
+            android:label="Success"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <!-- Common Activities End -->
+
+
+        <!-- Medicine Start -->
+        <activity
+            android:name=".MedicineActivity"
+            android:label="Medicines"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".Medicines.MedPrescYesActivity"
+            android:label="Upload Prescription"
+            android:parentActivityName=".MedicineActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MedicineActivity" />
+        </activity>
+        <activity
+            android:name=".Medicines.MedicineRequirementActivity"
+            android:label="Order your Medicine"
+            android:parentActivityName=".Medicines.MedPrescYesActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Medicines.MedPrescYesActivity" />
+        </activity>
+        <activity
+            android:name=".Medicines.MedicineAddress"
+            android:label="Select Delivery Address"
+            android:parentActivityName=".Medicines.MedPrescYesActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Medicines.MedPrescYesActivity" />
+        </activity>
+        <!-- Medicine End -->
+
+
+        <!-- Account Start -->
+        <activity
+            android:name=".AccountActivity"
+            android:label="Profile"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".Personal.ChangePasswordActivity"
+            android:label="Change Password"
+            android:parentActivityName=".AccountActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AccountActivity" />
+        </activity>
+        <activity
+            android:name=".Personal.AddressActivity"
+            android:label="Saved Addressess"
+            android:parentActivityName=".AccountActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AccountActivity" />
+        </activity>
+        <activity
+            android:name=".Personal.NewAddressActivity"
+            android:label="Add New Address"
+            android:parentActivityName=".Personal.AddressActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Personal.AddressActivity" />
+        </activity>
+        <activity
+            android:name=".Personal.PatientActivity"
+            android:label="My Family Members"
+            android:parentActivityName=".AccountActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AccountActivity" />
+        </activity>
+        <activity
+            android:name=".Personal.NewPatientActivity"
+            android:label="Add New Family Member"
+            android:parentActivityName=".Personal.PatientActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Personal.PatientActivity" />
+        </activity>
+        <!-- Account End -->
+
+
+        <!-- Orders Start -->
+
+        <activity
+            android:name=".OrdersActivity"
+            android:hardwareAccelerated="false"
+            android:label="Order History"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".Orders.OrderMedDescActivity"
+            android:label="Order Details"
+            android:parentActivityName=".OrdersActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OrdersActivity" />
+        </activity>
+        <activity
+            android:name=".Orders.OrderDiagDescActivity"
+            android:label="Order Details"
+            android:parentActivityName=".OrdersActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OrdersActivity" />
+        </activity>
+        <activity
+            android:name=".Orders.ReportDownloadActivity"
+            android:label="Reports"
+            android:parentActivityName=".Orders.OrderDiagDescActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Orders.OrderDiagDescActivity" />
+        </activity>
+
+        <!-- Orders End -->
+
+
+        <!-- Diagnostics Start -->
+        <activity
+            android:name=".DiagnosticsActivity"
+            android:hardwareAccelerated="false"
+            android:label="Diagnostics"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".Diagnostics.LabProfileActivity"
+            android:label="Lab Profile"
+            android:parentActivityName=".DiagnosticsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DiagnosticsActivity" />
+        </activity>
+        <activity
+            android:name=".Diagnostics.SingleLabTestsActivity"
+            android:label="Lab Tests"
+            android:parentActivityName=".Diagnostics.LabProfileActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Diagnostics.LabProfileActivity" />
+        </activity>
+        <activity
+            android:name=".Diagnostics.SingleLabPackageActivity"
+            android:label="Lab Packages"
+            android:parentActivityName=".Diagnostics.LabProfileActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Diagnostics.LabProfileActivity" />
+        </activity>
+        <activity
+            android:name=".Diagnostics.TestDescActivity"
+            android:label="Lab Tests"
+            android:parentActivityName=".DiagnosticsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DiagnosticsActivity" />
+        </activity>
+        <activity
+            android:name=".Diagnostics.PackagesActivity"
+            android:label="Lab Packages"
+            android:parentActivityName=".DiagnosticsActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DiagnosticsActivity" />
+        </activity>
+        <activity
+            android:name=".Diagnostics.PackageDescActivity"
+            android:label="Lab Packages"
+            android:parentActivityName=".Diagnostics.PackagesActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Diagnostics.PackagesActivity" />
+        </activity>
+        <!-- Diagnostics End -->
+
+
+        <!-- Cart End -->
+        <activity
+            android:name=".CartActivity"
+            android:label="Cart"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".BillingActivity"
+            android:label="Billing"
+            android:parentActivityName=".CartActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CartActivity" />
+        </activity>
+        <activity
+            android:name=".Personal.AvailTimeActivity"
+            android:label="Available Time"
+            android:parentActivityName=".BillingActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BillingActivity" />
+        </activity>
+        <!-- Cart End -->
+
+        <activity
+            android:name=".AboutActivity"
+            android:label="About US"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".Personal.ReferActivity"
+            android:label="Refer &amp; Earn"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".SupportActivity"
+            android:label="Customer Support"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+    </application>
+
+</manifest>

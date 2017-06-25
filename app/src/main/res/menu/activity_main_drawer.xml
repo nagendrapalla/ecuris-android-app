@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_medicines"
+            android:icon="@drawable/ic_medicines"
+            android:title="MEDICINES" />
+        <item
+            android:id="@+id/nav_diagnostics"
+            android:icon="@drawable/ic_diagnostics"
+            android:title="DIAGNOSTICS" />
+    </group>
+
+    <item android:title="PERSONAL">
+        <menu>
+            <item
+                android:id="@+id/nav_account"
+                android:icon="@drawable/ic_account"
+                android:title="ACCOUNT" />
+            <item
+                android:id="@+id/nav_payhistory"
+                android:icon="@drawable/ic_menu_payment_history"
+                android:title="ORDER HISTORY" />
+        </menu>
+    </item>
+
+    <item android:title="OFFERS">
+        <menu>
+            <item
+                android:id="@+id/nav_refer"
+                android:icon="@drawable/ic_refer"
+                android:title="REFER &amp; EARN" />
+            <!--<item-->
+                <!--android:id="@+id/nav_offers"-->
+                <!--android:icon="@drawable/ic_offers"-->
+                <!--android:title="OFFERS" />-->
+        </menu>
+    </item>
+
+    <item android:title="SUPPORT">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="SETTINGS" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_about"
+                android:title="ABOUT US" />
+            <item
+                android:id="@+id/nav_support"
+                android:icon="@drawable/ic_support_account"
+                android:title="SUPPORT" />
+            <item
+                android:id="@+id/nav_rating"
+                android:icon="@drawable/ic_rating"
+                android:title="RATE OUR APP" />
+        </menu>
+    </item>
+
+</menu>
