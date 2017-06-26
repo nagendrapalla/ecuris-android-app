@@ -63,9 +63,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
     Session session;
     private static final int REQUEST_PERMISSION = 10;
     String cart_cnt_num = "0";
-    MaterialSearchView searchView;
-    String[] toppings = {};
-    List<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +100,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         session = new Session(this);
         String appPincode = session.getPincode();
         if(appPincode == null){
-            startActivity(new Intent(this, AreaDetectorActivity.class));
+            startActivity(new Intent(this, AreaDetectorActivity.class).putExtra("value", false));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -128,72 +125,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         home_doct.setOnClickListener(this);
         home_help.setOnClickListener(this);
         home_ord.setOnClickListener(this);
-
-        ArrayList<String> titles_arr = new ArrayList<String>();
-
-        try {
-            JsonArray test_json = Ion.with(this).load("http://portal.ecuris.in/api/tests_all/").asJsonArray().get();
-            for (int i = 0; i < test_json.size(); i++) {
-                String x = test_json.get(i).toString();
-                try {
-                    final JSONObject xx = new JSONObject(x);
-                    titles_arr.add(xx.getString("title"));
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
-                }
-            }
-
-            JsonArray package_json = Ion.with(this).load("http://portal.ecuris.in/api/packages/").asJsonArray().get();
-            for (int i = 0; i < package_json.size(); i++) {
-                String x = package_json.get(i).toString();
-                try {
-                    final JSONObject xx = new JSONObject(x);
-                    titles_arr.add(xx.getString("package_title"));
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
-                }
-            }
-
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        toppings = new String[titles_arr.size()];
-        toppings = titles_arr.toArray(toppings);
-
-        searchView = (MaterialSearchView) findViewById(R.id.search_view);
-        searchView.setVoiceSearch(false);
-        searchView.setEllipsize(true);
-        searchView.setSuggestions(toppings);
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Do some magic
-                return false;
-            }
-        });
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                searchView.showSearch(true);
-                searchView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-                //Do some magic
-            }
-        });
-
     }
 
 
@@ -214,12 +145,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-
-        if (searchView.isSearchOpen()) {
-            searchView.closeSearch();
         } else {
             super.onBackPressed();
         }
@@ -260,9 +185,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
         setBadgeCount(this, icon, cart_cnt_num);
 
-        MenuItem searchItem = menu.findItem(R.id.nav_search);
-        searchView.setMenuItem(searchItem);
-
         return true;
     }
 
@@ -276,8 +198,12 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
                 startActivity(new Intent(this, CartActivity.class));
                 break;
 
-            case R.id.nav_pincode:
-                startActivity(new Intent(this, AreaDetectorActivity.class));
+//            case R.id.nav_pincode:
+//                startActivity(new Intent(this, AreaDetectorActivity.class));
+//                break;
+
+            case R.id.nav_search:
+                startActivity(new Intent(this, SearchActivity.class));
                 break;
         }
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
+import in.stallats.ecuris.CartActivity;
 import in.stallats.ecuris.MainActivity;
 import in.stallats.ecuris.R;
 import in.stallats.ecuris.Supporting.Session;
@@ -24,22 +26,39 @@ import in.stallats.ecuris.Supporting.Session;
 public class AreaDetectorActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Session session;
+    Boolean act;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_detector);
 
+        session = new Session(getApplicationContext());
+        act = getIntent().getBooleanExtra("value", false);
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Button btn = (Button) findViewById(R.id.btnStatus);
+        LinearLayout btn = (LinearLayout) findViewById(R.id.btnStatus);
         btn.setOnClickListener(this);
 
+        LinearLayout skipbtn = (LinearLayout) findViewById(R.id.btnSkip);
+        skipbtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btnSkip:
+                session.setPincode("1");
+                if (act) {
+                    intent = new Intent(getApplicationContext(), CartActivity.class);
+                } else {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                }
+                startActivity(intent);
+                finish();
+                break;
             case R.id.btnStatus:
                 try {
                     EditText txt = (EditText) findViewById(R.id.editPincode);
@@ -50,11 +69,15 @@ public class AreaDetectorActivity extends AppCompatActivity implements View.OnCl
                         if (sts_pin == 0) {
                             Toast.makeText(getApplicationContext(), "Sorry, Currently we are not providing our service in your location.", Toast.LENGTH_LONG).show();
                         } else {
-                            session = new Session(getApplicationContext());
                             String xtp = String.valueOf(txt.getText());
                             session.setPincode(xtp);
                             Toast.makeText(getApplicationContext(), "Enjoy your shopping. Thank you....", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                            if (act) {
+                                intent = new Intent(getApplicationContext(), CartActivity.class);
+                            } else {
+                                intent = new Intent(getApplicationContext(), MainActivity.class);
+                            }
                             startActivity(intent);
                             finish();
                         }
@@ -64,6 +87,7 @@ public class AreaDetectorActivity extends AppCompatActivity implements View.OnCl
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
+                break;
         }
     }
 }

@@ -22,8 +22,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import in.stallats.ecuris.Common.AreaDetectorActivity;
 import in.stallats.ecuris.Common.LoginActivity;
 import in.stallats.ecuris.Common.NoInternetActivity;
+import in.stallats.ecuris.Personal.AddressActivity;
 import in.stallats.ecuris.Supporting.ConnectionDetector;
 import in.stallats.ecuris.Supporting.Session;
 
@@ -52,8 +54,30 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             finish();
         }
 
+        TextView txtxpincode = (TextView) findViewById(R.id.txtpincode);
+
+        String pincode = session.getPincode();
+        if(pincode == null){
+            txtxpincode.setText("Pincode: ----");
+        }else{
+            if(pincode.equals("1")){
+                txtxpincode.setText("Pincode: ----");
+            }else{
+                txtxpincode.setText("Pincode: " + pincode);
+            }
+        }
+
+        LinearLayout btnChange = (LinearLayout) findViewById(R.id.pinchange_btn);
+        btnChange.setOnClickListener(this);
+
         Button btn = (Button) findViewById(R.id.proceed_cart);
-        btn.setOnClickListener(this);
+
+        if(pincode == null || pincode.equals("1")){
+            Toast.makeText(getApplicationContext(), "Please Enter your pincode to proceed...", Toast.LENGTH_LONG).show();
+        }else{
+            btn.setOnClickListener(this);
+        }
+
 
         HashMap<String, String> user = session.getUserDetails();
         final String id = user.get("id");
@@ -264,6 +288,9 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.proceed_cart:
                 startActivity(new Intent(this, BillingActivity.class));
+                break;
+            case R.id.pinchange_btn:
+                startActivity(new Intent(this, AreaDetectorActivity.class).putExtra("value", true));
                 break;
             default:
         }
