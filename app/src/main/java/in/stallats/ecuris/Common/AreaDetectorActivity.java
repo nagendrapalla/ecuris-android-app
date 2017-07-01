@@ -18,8 +18,10 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
+import in.stallats.ecuris.BillingActivity;
 import in.stallats.ecuris.CartActivity;
 import in.stallats.ecuris.MainActivity;
+import in.stallats.ecuris.Medicines.MedicineAddress;
 import in.stallats.ecuris.R;
 import in.stallats.ecuris.Supporting.Session;
 
@@ -52,7 +54,14 @@ public class AreaDetectorActivity extends AppCompatActivity implements View.OnCl
             case R.id.btnSkip:
                 session.setPincode("1");
                 if (act) {
-                    intent = new Intent(getApplicationContext(), CartActivity.class);
+                    String page = getIntent().getStringExtra("page");
+
+                    if(page.equals("bill")){
+                        intent = new Intent(getApplicationContext(), BillingActivity.class);
+                    }else{
+                        intent = new Intent(getApplicationContext(), MedicineAddress.class);
+                    }
+
                 } else {
                     intent = new Intent(getApplicationContext(), MainActivity.class);
                 }
@@ -74,7 +83,13 @@ public class AreaDetectorActivity extends AppCompatActivity implements View.OnCl
                             Toast.makeText(getApplicationContext(), "Enjoy your shopping. Thank you....", Toast.LENGTH_LONG).show();
 
                             if (act) {
-                                intent = new Intent(getApplicationContext(), CartActivity.class);
+                                String page = getIntent().getStringExtra("page");
+
+                                if(page.equals("bill")){
+                                    intent = new Intent(getApplicationContext(), BillingActivity.class);
+                                }else{
+                                    intent = new Intent(getApplicationContext(), MedicineAddress.class);
+                                }
                             } else {
                                 intent = new Intent(getApplicationContext(), MainActivity.class);
                             }

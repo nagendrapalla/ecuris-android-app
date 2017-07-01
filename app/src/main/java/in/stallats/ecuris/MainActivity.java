@@ -185,6 +185,9 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
         setBadgeCount(this, icon, cart_cnt_num);
 
+        MenuItem searchCart = menu.findItem(R.id.nav_search);
+        searchCart.setVisible(false);
+
         return true;
     }
 
@@ -202,9 +205,9 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
 //                startActivity(new Intent(this, AreaDetectorActivity.class));
 //                break;
 
-            case R.id.nav_search:
-                startActivity(new Intent(this, SearchActivity.class));
-                break;
+//            case R.id.nav_search:
+//                startActivity(new Intent(this, SearchActivity.class));
+//                break;
         }
 
         return super.onOptionsItemSelected(item);

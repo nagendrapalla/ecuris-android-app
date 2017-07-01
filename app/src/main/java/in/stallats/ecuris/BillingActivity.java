@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.security.SecureRandom;
 import java.util.HashMap;
 
+import in.stallats.ecuris.Common.AreaDetectorActivity;
 import in.stallats.ecuris.Common.SuccessActivity;
 import in.stallats.ecuris.Personal.AddressActivity;
 import in.stallats.ecuris.Personal.AvailTimeActivity;
@@ -45,93 +46,143 @@ public class BillingActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing);
 
-        session = new Session(this);
-        user = session.getUserDetails();
-        address = session.getAddress();
-        patient = session.getPatient();
-        avail = session.getAvailTime();
-
         //Address Management
         LinearLayout address_lo_1 = (LinearLayout) findViewById(R.id.address_lo_1);
         LinearLayout address_lo_2 = (LinearLayout) findViewById(R.id.address_lo_2);
         LinearLayout address_lo_3 = (LinearLayout) findViewById(R.id.address_lo_3);
-
-        address_lo_3.setOnClickListener(this);
-
-        TextView address_text_button = (TextView) findViewById(R.id.address_text_button);
-        TextView address_text_address = (TextView) findViewById(R.id.address_text_address);
-        TextView address_text_name = (TextView) findViewById(R.id.address_text_name);
-        TextView address_text_title = (TextView) findViewById(R.id.address_text_title);
-
-        if (!session.checkAddressMode()) {
-            address_lo_1.setVisibility(View.GONE);
-            address_lo_2.setVisibility(View.GONE);
-            address_text_button.setText("Choose Address");
-        } else {
-            final String ti = address.get("address_title");
-            final String adid = address.get("address_id");
-            final String ad = address.get("address_address");
-            final String username = user.get("name");
-
-            address_text_name.setText(username);
-            address_text_title.setText(ti);
-            address_text_address.setText(ad);
-            address_text_button.setText("Change Address");
-        }
-
 
         //Patient Management
         LinearLayout patient_lo_1 = (LinearLayout) findViewById(R.id.patient_lo_1);
         LinearLayout patient_lo_2 = (LinearLayout) findViewById(R.id.patient_lo_2);
         LinearLayout patient_lo_3 = (LinearLayout) findViewById(R.id.patient_lo_3);
 
-        patient_lo_3.setOnClickListener(this);
-
-        TextView patient_name_text = (TextView) findViewById(R.id.patient_name_text);
-        TextView patient_age_text = (TextView) findViewById(R.id.patient_age_text);
-        TextView patient_gender_text = (TextView) findViewById(R.id.patient_gender_text);
-        TextView patient_button_text = (TextView) findViewById(R.id.patient_button_text);
-
-        if (!session.checkPatientMode()) {
-            patient_lo_1.setVisibility(View.GONE);
-            patient_lo_2.setVisibility(View.GONE);
-            patient_button_text.setText("Choose Patient");
-        } else {
-            patient_name_text.setText(patient.get("patient_name"));
-            patient_age_text.setText("Age : " + patient.get("patient_age") + " years");
-            patient_gender_text.setText("Gender : " + patient.get("patient_gender"));
-            patient_button_text.setText("Change Patient");
-        }
-
-
         //Availabilty Date and Time
         LinearLayout avail_lo_1 = (LinearLayout) findViewById(R.id.avail_lo_1);
         LinearLayout avail_lo_2 = (LinearLayout) findViewById(R.id.avail_lo_2);
         LinearLayout avail_lo_3 = (LinearLayout) findViewById(R.id.avail_lo_3);
 
-        avail_lo_3.setOnClickListener(this);
-
-        TextView avai_text_date_n_time = (TextView) findViewById(R.id.avai_text_date_n_time);
-        TextView avai_text_button = (TextView) findViewById(R.id.avai_text_button);
-
-        if (!session.checkAvailMode()) {
-            avail_lo_1.setVisibility(View.GONE);
-            avail_lo_2.setVisibility(View.GONE);
-            avai_text_button.setText("Choose Availabile Time");
-        } else {
-            avai_text_date_n_time.setText(avail.get("avail_date") + " - " + avail.get("avail_time"));
-            avai_text_button.setText("Change Available Time");
-        }
+        TextView txtxpincode = (TextView) findViewById(R.id.txtpincode);
 
         Button billing_button = (Button) findViewById(R.id.billing_button);
 
-        if (session.checkAvailMode() && session.checkPatientMode() && session.checkAddressMode()) {
-            billing_button.setVisibility(View.VISIBLE);
-            billing_button.setOnClickListener(this);
+        session = new Session(this);
+        user = session.getUserDetails();
+        address = session.getAddress();
+        patient = session.getPatient();
+        avail = session.getAvailTime();
+
+        String pincode = session.getPincode();
+        if (pincode == null) {
+            txtxpincode.setText("Pincode: ----");
         } else {
-            billing_button.setVisibility(View.GONE);
+            if (pincode.equals("1")) {
+                txtxpincode.setText("Pincode: ----");
+            } else {
+                txtxpincode.setText("Pincode: " + pincode);
+            }
         }
 
+        LinearLayout btnChange = (LinearLayout) findViewById(R.id.pinchange_btn);
+        btnChange.setOnClickListener(this);
+
+        if (pincode == null || pincode.equals("1")) {
+            Toast.makeText(getApplicationContext(), "Please Enter your pincode to proceed...", Toast.LENGTH_LONG).show();
+
+            address_lo_1.setVisibility(View.GONE);
+            address_lo_2.setVisibility(View.GONE);
+            address_lo_3.setVisibility(View.GONE);
+
+            patient_lo_1.setVisibility(View.GONE);
+            patient_lo_2.setVisibility(View.GONE);
+            patient_lo_3.setVisibility(View.GONE);
+
+            avail_lo_1.setVisibility(View.GONE);
+            avail_lo_2.setVisibility(View.GONE);
+            avail_lo_3.setVisibility(View.GONE);
+
+            billing_button.setVisibility(View.GONE);
+        } else {
+
+            address_lo_1.setVisibility(View.VISIBLE);
+            address_lo_2.setVisibility(View.VISIBLE);
+            address_lo_3.setVisibility(View.VISIBLE);
+
+            patient_lo_1.setVisibility(View.VISIBLE);
+            patient_lo_2.setVisibility(View.VISIBLE);
+            patient_lo_3.setVisibility(View.VISIBLE);
+
+            avail_lo_1.setVisibility(View.VISIBLE);
+            avail_lo_2.setVisibility(View.VISIBLE);
+            avail_lo_3.setVisibility(View.VISIBLE);
+
+            billing_button.setVisibility(View.VISIBLE);
+
+            address_lo_3.setOnClickListener(this);
+
+            TextView address_text_button = (TextView) findViewById(R.id.address_text_button);
+            TextView address_text_address = (TextView) findViewById(R.id.address_text_address);
+            TextView address_text_name = (TextView) findViewById(R.id.address_text_name);
+            TextView address_text_title = (TextView) findViewById(R.id.address_text_title);
+
+            if (!session.checkAddressMode()) {
+                address_lo_1.setVisibility(View.GONE);
+                address_lo_2.setVisibility(View.GONE);
+                address_text_button.setText("Choose Address");
+            } else {
+                final String ti = address.get("address_title");
+                final String adid = address.get("address_id");
+                final String ad = address.get("address_address");
+                final String username = user.get("name");
+
+                address_text_name.setText(username);
+                address_text_title.setText(ti);
+                address_text_address.setText(ad);
+                address_text_button.setText("Change Address");
+            }
+
+
+            patient_lo_3.setOnClickListener(this);
+
+            TextView patient_name_text = (TextView) findViewById(R.id.patient_name_text);
+            TextView patient_age_text = (TextView) findViewById(R.id.patient_age_text);
+            TextView patient_gender_text = (TextView) findViewById(R.id.patient_gender_text);
+            TextView patient_button_text = (TextView) findViewById(R.id.patient_button_text);
+
+            if (!session.checkPatientMode()) {
+                patient_lo_1.setVisibility(View.GONE);
+                patient_lo_2.setVisibility(View.GONE);
+                patient_button_text.setText("Choose Patient");
+            } else {
+                patient_name_text.setText(patient.get("patient_name"));
+                patient_age_text.setText("Age : " + patient.get("patient_age") + " years");
+                patient_gender_text.setText("Gender : " + patient.get("patient_gender"));
+                patient_button_text.setText("Change Patient");
+            }
+
+
+            avail_lo_3.setOnClickListener(this);
+
+            TextView avai_text_date_n_time = (TextView) findViewById(R.id.avai_text_date_n_time);
+            TextView avai_text_button = (TextView) findViewById(R.id.avai_text_button);
+
+            if (!session.checkAvailMode()) {
+                avail_lo_1.setVisibility(View.GONE);
+                avail_lo_2.setVisibility(View.GONE);
+                avai_text_button.setText("Choose Availabile Time");
+            } else {
+                avai_text_date_n_time.setText(avail.get("avail_date") + " - " + avail.get("avail_time"));
+                avai_text_button.setText("Change Available Time");
+            }
+
+
+
+            if (session.checkAvailMode() && session.checkPatientMode() && session.checkAddressMode()) {
+                billing_button.setVisibility(View.VISIBLE);
+                billing_button.setOnClickListener(this);
+            } else {
+                billing_button.setVisibility(View.GONE);
+            }
+        }
     }
 
     String randomString(int len) {
@@ -160,6 +211,9 @@ public class BillingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.avail_lo_3:
                 startActivity(new Intent(this, AvailTimeActivity.class));
+                break;
+            case R.id.pinchange_btn:
+                startActivity(new Intent(this, AreaDetectorActivity.class).putExtra("value", true).putExtra("page", "bill"));
                 break;
             case R.id.billing_button:
 
@@ -200,7 +254,7 @@ public class BillingActivity extends AppCompatActivity implements View.OnClickLi
                                             JsonObject order_info_item = new JsonObject();
                                             order_info_item.addProperty("order_id", order_id);
                                             order_info_item.addProperty("product_id", product_id);
-                                            order_info_item.addProperty("product_name",product_name);
+                                            order_info_item.addProperty("product_name", product_name);
                                             order_info_item.addProperty("product_type", xx.getString("module"));
                                             order_info_item.addProperty("avaialable_date_n_time", avail.get("avail_date") + " - " + avail.get("avail_time"));
                                             order_info_item.addProperty("price", price);

@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.stallats.ecuris.Common.AreaDetectorActivity;
 import in.stallats.ecuris.Common.LoginActivity;
 import in.stallats.ecuris.Common.SuccessActivity;
 import in.stallats.ecuris.Personal.AddressActivity;
@@ -94,42 +95,76 @@ public class MedicineAddress extends AppCompatActivity implements View.OnClickLi
             presc_num = 0;
         }
 
+        TextView txtxpincode = (TextView) findViewById(R.id.txtpincode);
+
+        String pincode = session.getPincode();
+        if (pincode == null) {
+            txtxpincode.setText("Pincode: ----");
+        } else {
+            if (pincode.equals("1")) {
+                txtxpincode.setText("Pincode: ----");
+            } else {
+                txtxpincode.setText("Pincode: " + pincode);
+            }
+        }
+
+        LinearLayout btnChange = (LinearLayout) findViewById(R.id.pinchange_btn);
+        btnChange.setOnClickListener(this);
+
         //Address Management
         LinearLayout address_lo_1 = (LinearLayout) findViewById(R.id.address_lo_1);
         LinearLayout address_lo_2 = (LinearLayout) findViewById(R.id.address_lo_2);
         LinearLayout address_lo_3 = (LinearLayout) findViewById(R.id.address_lo_3);
 
-        address_lo_3.setOnClickListener(this);
-
-        TextView address_text_button = (TextView) findViewById(R.id.address_text_button);
-        TextView address_text_address = (TextView) findViewById(R.id.address_text_address);
-        TextView address_text_name = (TextView) findViewById(R.id.address_text_name);
-        TextView address_text_title = (TextView) findViewById(R.id.address_text_title);
-
-        if (!session.checkAddressMode()) {
-            address_lo_1.setVisibility(View.GONE);
-            address_lo_2.setVisibility(View.GONE);
-            address_text_button.setText("Choose Address");
-        } else {
-            final String ti = address.get("address_title");
-            final String adid = address.get("address_id");
-            final String ad = address.get("address_address");
-            final String username = user.get("name");
-
-            address_text_name.setText(username);
-            address_text_title.setText(ti);
-            address_text_address.setText(ad);
-            address_text_button.setText("Change Address");
-        }
-
-
         Button billing_button = (Button) findViewById(R.id.billing_button);
 
-        if (session.checkAddressMode()) {
-            billing_button.setVisibility(View.VISIBLE);
-            billing_button.setOnClickListener(this);
-        } else {
+        if (pincode == null || pincode.equals("1")) {
+            Toast.makeText(getApplicationContext(), "Please Enter your pincode to proceed...", Toast.LENGTH_LONG).show();
+
+            address_lo_1.setVisibility(View.GONE);
+            address_lo_2.setVisibility(View.GONE);
+            address_lo_3.setVisibility(View.GONE);
+
             billing_button.setVisibility(View.GONE);
+        } else {
+
+            address_lo_1.setVisibility(View.VISIBLE);
+            address_lo_2.setVisibility(View.VISIBLE);
+            address_lo_3.setVisibility(View.VISIBLE);
+
+            billing_button.setVisibility(View.VISIBLE);
+
+
+            address_lo_3.setOnClickListener(this);
+
+            TextView address_text_button = (TextView) findViewById(R.id.address_text_button);
+            TextView address_text_address = (TextView) findViewById(R.id.address_text_address);
+            TextView address_text_name = (TextView) findViewById(R.id.address_text_name);
+            TextView address_text_title = (TextView) findViewById(R.id.address_text_title);
+
+            if (!session.checkAddressMode()) {
+                address_lo_1.setVisibility(View.GONE);
+                address_lo_2.setVisibility(View.GONE);
+                address_text_button.setText("Choose Address");
+            } else {
+                final String ti = address.get("address_title");
+                final String adid = address.get("address_id");
+                final String ad = address.get("address_address");
+                final String username = user.get("name");
+
+                address_text_name.setText(username);
+                address_text_title.setText(ti);
+                address_text_address.setText(ad);
+                address_text_button.setText("Change Address");
+            }
+
+
+            if (session.checkAddressMode()) {
+                billing_button.setVisibility(View.VISIBLE);
+                billing_button.setOnClickListener(this);
+            } else {
+                billing_button.setVisibility(View.GONE);
+            }
         }
 
     }
@@ -154,6 +189,9 @@ public class MedicineAddress extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.address_lo_3:
                 startActivity(new Intent(this, AddressActivity.class).putExtra("value", true).putExtra("med_order", true));
+                break;
+            case R.id.pinchange_btn:
+                startActivity(new Intent(this, AreaDetectorActivity.class).putExtra("value", true).putExtra("page", "med"));
                 break;
             case R.id.billing_button:
 
