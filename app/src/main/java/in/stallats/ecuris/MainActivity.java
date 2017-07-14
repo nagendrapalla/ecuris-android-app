@@ -1,60 +1,44 @@
 package in.stallats.ecuris;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.sql.Array;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import in.stallats.ecuris.Adapters.MedOrders;
 import in.stallats.ecuris.Common.AreaDetectorActivity;
 import in.stallats.ecuris.Common.NoInternetActivity;
 import in.stallats.ecuris.Personal.ReferActivity;
 import in.stallats.ecuris.Supporting.AbsRuntimePermissions;
 import in.stallats.ecuris.Supporting.BagdeDrawable;
 import in.stallats.ecuris.Supporting.ConnectionDetector;
-import in.stallats.ecuris.Supporting.MySingleton;
 import in.stallats.ecuris.Supporting.Session;
 
 public class MainActivity extends AbsRuntimePermissions implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -63,6 +47,8 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
     Session session;
     private static final int REQUEST_PERMISSION = 10;
     String cart_cnt_num = "0";
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +111,9 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         home_doct.setOnClickListener(this);
         home_help.setOnClickListener(this);
         home_ord.setOnClickListener(this);
+
+
+
     }
 
 
@@ -186,7 +175,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         setBadgeCount(this, icon, cart_cnt_num);
 
         MenuItem searchCart = menu.findItem(R.id.nav_search);
-        searchCart.setVisible(false);
+        searchCart.setVisible(true);
 
         return true;
     }
@@ -297,5 +286,4 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         icon.mutate();
         icon.setDrawableByLayerId(R.id.ic_badge, badge);
     }
-
 }

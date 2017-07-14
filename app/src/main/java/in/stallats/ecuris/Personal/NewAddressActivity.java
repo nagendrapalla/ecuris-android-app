@@ -43,9 +43,9 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         ad_title = (EditText) findViewById(R.id.ad_title);
         ad_full_name = (EditText) findViewById(R.id.ad_full_name);
         ad_mobile_number = (EditText) findViewById(R.id.ad_mobile_number);
-        ad_pincode = (EditText) findViewById(R.id.ad_pincode);
-        ad_pincode.setText(session.getPincode());
-        ad_pincode.setEnabled(false);
+        //ad_pincode = (EditText) findViewById(R.id.ad_pincode);
+        //ad_pincode.setText(session.getPincode());
+        //ad_pincode.setEnabled(false);
         ad_building = (EditText) findViewById(R.id.ad_building);
         ad_street = (EditText) findViewById(R.id.ad_street);
         ad_landmark = (EditText) findViewById(R.id.ad_landmark);
@@ -87,14 +87,14 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         String title = ad_title.getText().toString();
         String name = ad_full_name.getText().toString();
         String mobile = ad_mobile_number.getText().toString();
-        String pincode = ad_pincode.getText().toString();
+        //String pincode = ad_pincode.getText().toString();
         String bilding = ad_building.getText().toString();
         String street = ad_street.getText().toString();
         String landmark = ad_landmark.getText().toString();
         String city = ad_city.getText().toString();
         String state = ad_state.getText().toString();
 
-        if (title.isEmpty() || name.isEmpty() || mobile.isEmpty() || pincode.isEmpty() || bilding.isEmpty() || street.isEmpty() || city.isEmpty() || state.isEmpty()) {
+        if (title.isEmpty() || name.isEmpty() || mobile.isEmpty() || bilding.isEmpty() || street.isEmpty() || city.isEmpty() || state.isEmpty()) {
             displayToast("Please Enter all Fields");
         } else {
             logincheck();
@@ -113,7 +113,7 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         json.addProperty("title", ad_title.getText().toString());
         json.addProperty("name", ad_full_name.getText().toString());
         json.addProperty("mobile", ad_mobile_number.getText().toString());
-        json.addProperty("pincode", ad_pincode.getText().toString());
+        json.addProperty("pincode", "000000");
         json.addProperty("building", ad_building.getText().toString());
         json.addProperty("street", ad_street.getText().toString());
         json.addProperty("landmark", ad_landmark.getText().toString());

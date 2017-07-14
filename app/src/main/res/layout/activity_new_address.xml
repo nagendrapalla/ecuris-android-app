@@ -66,18 +66,18 @@
                         android:hint="Enter Mobile Number"/>
                 </android.support.design.widget.TextInputLayout>
 
-                <!--  Pincode Label -->
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/ad_pincode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberSigned"
-                        android:hint="Enter Pincode"/>
-                </android.support.design.widget.TextInputLayout>
+                <!--&lt;!&ndash;  Pincode Label &ndash;&gt;-->
+                <!--<android.support.design.widget.TextInputLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="0dp"-->
+                    <!--android:layout_marginBottom="8dp">-->
+                    <!--<EditText android:id="@+id/ad_pincode"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:inputType="numberSigned"-->
+                        <!--android:hint="Enter Pincode"/>-->
+                <!--</android.support.design.widget.TextInputLayout>-->
 
                 <!--  Flat / House No. / Floor / Building Label -->
                 <android.support.design.widget.TextInputLayout

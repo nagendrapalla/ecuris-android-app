@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import in.stallats.ecuris.BillingActivity;
 import in.stallats.ecuris.Common.LoginActivity;
 import in.stallats.ecuris.Common.NoInternetActivity;
 import in.stallats.ecuris.Medicines.MedicineAddress;
@@ -88,11 +90,12 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                                     final JSONObject xx = new JSONObject(x);
 
                                     LinearLayout child_address = (LinearLayout) view.findViewById(R.id.child_address);
-                                    TextView get_address_text_name = (TextView) view.findViewById(R.id.get_address_text_name);
+                                    //TextView get_address_text_name = (TextView) view.findViewById(R.id.get_address_text_name);
                                     TextView get_address_text_title = (TextView) view.findViewById(R.id.get_address_text_title);
                                     TextView get_address_text_address = (TextView) view.findViewById(R.id.get_address_text_address);
 
                                     TextView dtxt = (TextView) view.findViewById(R.id.get_address_delete);
+                                    //ImageView dtxt = (ImageView) view.findViewById(R.id.get_address_delete);
 
                                     final String addr_id = xx.getString("id");
                                     final String addr_title = xx.getString("address_type");
@@ -118,9 +121,9 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                                         }
                                     });
 
-                                    get_address_text_name.setText(xx.getString("full_name"));
+                                    //get_address_text_name.setText(xx.getString("full_name"));
                                     get_address_text_title.setText(xx.getString("address_type"));
-                                    get_address_text_address.setText(xx.getString("building")+", "+xx.getString("street")+", "+xx.getString("landmark")+", "+xx.getString("city")+", "+xx.getString("state")+" - "+xx.getString("pincode"));
+                                    get_address_text_address.setText(xx.getString("building")+", "+xx.getString("street")+", "+xx.getString("landmark")+", "+xx.getString("city")+", "+xx.getString("state"));
 
                                     if (act) {
                                         child_address.setOnClickListener(new LinearLayout.OnClickListener() {
@@ -129,7 +132,7 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                                                 try {
                                                     String id = xx.getString("id");
                                                     String title = xx.getString("address_type");
-                                                    String address = xx.getString("building")+", "+xx.getString("street")+", "+xx.getString("landmark")+", "+xx.getString("city")+", "+xx.getString("state")+" - "+xx.getString("pincode");
+                                                    String address = xx.getString("building")+", "+xx.getString("street")+", "+xx.getString("landmark")+", "+xx.getString("city")+", "+xx.getString("state");
                                                     Boolean address_mode = true;
                                                     session.set_address(id, title, address, address_mode);
                                                     Toast.makeText(getApplicationContext(), "Address : " + title + " Selected", Toast.LENGTH_SHORT).show();
@@ -138,7 +141,7 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                                                         startActivity(new Intent(getApplicationContext(), MedicineAddress.class));
                                                         finish();
                                                     }else{
-                                                        //startActivity(new Intent(getApplicationContext(), BillingActivity.class));
+                                                        startActivity(new Intent(getApplicationContext(), BillingActivity.class));
                                                         finish();
                                                     }
 
