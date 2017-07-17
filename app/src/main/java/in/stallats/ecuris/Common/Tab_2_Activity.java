@@ -19,14 +19,14 @@ public class Tab_2_Activity extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_tab_2, container, false);
 
-        Button btn = (Button) rootView.findViewById(R.id.start_lgoin_button_2);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        Button btn = (Button) rootView.findViewById(R.id.start_lgoin_button_2);
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         return rootView;
 

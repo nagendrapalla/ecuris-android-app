@@ -18,14 +18,14 @@ public class Tab_1_Activity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_tab_1, container, false);
 
-        final Button btn = (Button) rootView.findViewById(R.id.start_lgoin_button_1);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        final Button btn = (Button) rootView.findViewById(R.id.start_lgoin_button_1);
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         return rootView;
 
