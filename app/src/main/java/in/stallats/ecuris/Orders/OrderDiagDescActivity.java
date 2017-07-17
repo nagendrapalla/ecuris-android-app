@@ -7,11 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -21,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import in.stallats.ecuris.Common.LoginActivity;
 import in.stallats.ecuris.Common.NoInternetActivity;
@@ -34,8 +38,12 @@ public class OrderDiagDescActivity extends AppCompatActivity {
     private Session session;
     ConnectionDetector cd;
     String order_id;
+    private int count = 0, succ_count = 0, can_count = 0;
+    LinearLayout cancel_btn;
+    ScrollView scroll_id;
 
     LinearLayout ll, l;
+    Button cancel_btn_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +79,9 @@ public class OrderDiagDescActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         l = (LinearLayout) findViewById(R.id.order_item_parent);
+        cancel_btn = (LinearLayout) findViewById(R.id.cancel_btn);
+        scroll_id = (ScrollView) findViewById(R.id.scroll_id);
+        cancel_btn_text = (Button) findViewById(R.id.cancel_btn_text);
 
         Future<JsonArray> get = Ion.with(this)
                 .load("http://portal.ecuris.in/api/orderhistory/" + id + "/" + order_id)
@@ -134,6 +145,11 @@ public class OrderDiagDescActivity extends AppCompatActivity {
                                         order_item_desc_vendor.setText(xxx.getString("vendor"));
 
                                         String or_st = "";
+
+                                        if (Integer.parseInt(xxx.getString("status")) > 2) {
+                                            count++;
+                                        }
+
                                         switch (Integer.parseInt(xxx.getString("status"))) {
                                             case 0:
                                                 or_st = "New Order Placed";
@@ -163,8 +179,14 @@ public class OrderDiagDescActivity extends AppCompatActivity {
                                                 or_st = "Testing Completed process";
                                                 download_part.setVisibility(View.GONE);
                                                 break;
+                                            case 8:
+                                                or_st = "Order Cancelled";
+                                                download_part.setVisibility(View.GONE);
+                                                can_count++;
+                                                break;
                                             case 7:
                                                 or_st = "Order Closed";
+                                                succ_count++;
                                                 download_part.setVisibility(View.VISIBLE);
                                                 download_part.setOnClickListener(new LinearLayout.OnClickListener() {
                                                     @Override
@@ -193,6 +215,40 @@ public class OrderDiagDescActivity extends AppCompatActivity {
                                 }
                             }
 
+                            if(can_count == 0){
+
+                                if (count == 0 && succ_count == 0) {
+                                    cancel_btn_text.setText("Cancel Order");
+                                    cancel_btn_text.setBackgroundColor(Color.parseColor("#D80000"));
+                                    cancel_btn_text.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+
+                                            Future<JsonObject> get = Ion.with(getApplicationContext())
+                                                    .load("http://portal.ecuris.in/api/cancelorder/" + order_id)
+                                                    .asJsonObject()
+                                                    .setCallback(new FutureCallback<JsonObject>() {
+                                                        @Override
+                                                        public void onCompleted(Exception e, JsonObject result) {
+                                                            Toast.makeText(getApplicationContext(), "Order Cancelled", Toast.LENGTH_SHORT).show();
+                                                            finish();
+                                                            startActivity(getIntent());
+                                                        }
+                                                    });
+
+                                        }
+                                    });
+                                } else if (count != 0 && succ_count == 0) {
+                                    cancel_btn_text.setText("Order in Progress");
+                                    cancel_btn_text.setBackgroundColor(Color.parseColor("#FF8C00"));
+                                } else {
+                                    cancel_btn_text.setText("Order Completed");
+                                    cancel_btn_text.setBackgroundColor(Color.parseColor("#228B22"));
+                                }
+                            }else{
+                                cancel_btn_text.setText("Order Cancelled");
+                                cancel_btn_text.setBackgroundColor(Color.parseColor("#E400FF"));
+                            }
 
                         }
                     }

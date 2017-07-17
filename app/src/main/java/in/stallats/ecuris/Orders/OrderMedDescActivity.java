@@ -11,12 +11,14 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.kosalgeek.android.photoutil.ImageLoader;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
@@ -46,6 +48,10 @@ public class OrderMedDescActivity extends AppCompatActivity {
     ConnectionDetector cd;
     String order_id;
     String id;
+    Button cancel_btn_text;
+    private int count = 0;
+    CardView cancel_btn_layout;
+
 
     LinearLayout ll, l;
 
@@ -77,6 +83,9 @@ public class OrderMedDescActivity extends AppCompatActivity {
             order_id = extras.getString("order_id");
             ((MyApplication) getApplicationContext()).setOrder_id(order_id);
         }
+
+        cancel_btn_text = (Button) findViewById(R.id.cancel_btn_text);
+        cancel_btn_layout = (CardView) findViewById(R.id.cancel_btn_layout);
 
         Future<JsonArray> get = Ion.with(this)
                 .load("http://portal.ecuris.in/api/orders/medical/" + id + "/" + order_id)
@@ -130,9 +139,35 @@ public class OrderMedDescActivity extends AppCompatActivity {
                                     }else if(Integer.parseInt(status) == 1){
                                         med_desc_order_status.setText("Order In - Progress");
                                         med_desc_order_status.setTextColor(Color.parseColor("#FFC107"));
-                                    }else{
+                                    }else if(Integer.parseInt(status) == 2){
                                         med_desc_order_status.setText("Order Delivered");
                                         med_desc_order_status.setTextColor(Color.parseColor("#4CAF50"));
+                                    }else{
+                                        med_desc_order_status.setText("Order Cancelled");
+                                        med_desc_order_status.setTextColor(Color.parseColor("#D80000"));
+                                    }
+
+                                    if(Integer.parseInt(status) == 0 || Integer.parseInt(status) == 1){
+                                        cancel_btn_layout.setVisibility(View.VISIBLE);
+                                        cancel_btn_text.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                //Toast.makeText(getApplicationContext(), "Fired...", Toast.LENGTH_LONG).show();
+
+                                                Future<JsonObject> get = Ion.with(getApplicationContext())
+                                                        .load("http://portal.ecuris.in/api/cancelmedorder/" + order_id)
+                                                        .asJsonObject()
+                                                        .setCallback(new FutureCallback<JsonObject>() {
+                                                            @Override
+                                                            public void onCompleted(Exception e, JsonObject result) {
+                                                                Toast.makeText(getApplicationContext(), "Order Cancelled", Toast.LENGTH_SHORT).show();
+                                                                finish();
+                                                                startActivity(getIntent());
+                                                            }
+                                                        });
+
+                                            }
+                                        });
                                     }
 
                                     final String OLD_FORMAT = "yyyy-MM-dd HH:mm:ss";

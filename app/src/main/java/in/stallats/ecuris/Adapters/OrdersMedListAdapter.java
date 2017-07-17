@@ -61,9 +61,12 @@ public class OrdersMedListAdapter extends BaseAdapter {
         } else if (Integer.parseInt(ordersList.get(i).getOrder_status()) == 1) {
             order_payment_status_text.setText(" Order In - Progress");
             order_payment_status_text.setTextColor(Color.parseColor("#FFC107"));
-        } else {
+        } else if (Integer.parseInt(ordersList.get(i).getOrder_status()) == 2) {
             order_payment_status_text.setText(" Order Delivered");
             order_payment_status_text.setTextColor(Color.parseColor("#4CAF50"));
+        } else{
+            order_payment_status_text.setText(" Order Cancelled");
+            order_payment_status_text.setTextColor(Color.parseColor("#D80000"));
         }
 
         TextView order_billed_time_text = (TextView) v.findViewById(R.id.med_order_billed_time);

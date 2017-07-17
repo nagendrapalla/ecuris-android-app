@@ -3,23 +3,19 @@ package in.stallats.ecuris;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -28,10 +24,16 @@ import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import in.stallats.ecuris.Common.AreaDetectorActivity;
 import in.stallats.ecuris.Common.NoInternetActivity;
@@ -47,6 +49,10 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
     Session session;
     private static final int REQUEST_PERMISSION = 10;
     String cart_cnt_num = "0";
+
+    MaterialSearchView searchView;
+    String[] toppings = {};
+    List<String> list;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -113,6 +119,38 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         home_ord.setOnClickListener(this);
 
 
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setVoiceSearch(false);
+        searchView.setEllipsize(true);
+        searchView.setCursorDrawable(R.drawable.custom_cursor);
+
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(), SearchActivity.class).putExtra("qry", query));
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                searchView.showSearch(true);
+                searchView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
 
     }
 
@@ -134,6 +172,12 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
         } else {
             super.onBackPressed();
         }
@@ -174,8 +218,8 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
         setBadgeCount(this, icon, cart_cnt_num);
 
-        MenuItem searchCart = menu.findItem(R.id.nav_search);
-        searchCart.setVisible(true);
+        MenuItem item = menu.findItem(R.id.nav_search);
+        searchView.setMenuItem(item);
 
         return true;
     }
@@ -189,14 +233,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
             case R.id.nav_cart:
                 startActivity(new Intent(this, CartActivity.class));
                 break;
-
-//            case R.id.nav_pincode:
-//                startActivity(new Intent(this, AreaDetectorActivity.class));
-//                break;
-
-//            case R.id.nav_search:
-//                startActivity(new Intent(this, SearchActivity.class));
-//                break;
         }
 
         return super.onOptionsItemSelected(item);
