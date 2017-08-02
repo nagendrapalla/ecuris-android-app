@@ -3,96 +3,102 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Common.LoginActivity"
-    android:background="#fff"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".Common.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_corner">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingTop="50dp"
+                    android:orientation="horizontal"
                     android:paddingBottom="30dp"
-                    android:orientation="horizontal">
+                    android:paddingTop="30dp">
 
                     <ImageButton
+                        android:id="@+id/imageButton15"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/imageButton15"
-                        android:src="@mipmap/logo_color"
                         android:background="#00ffffff"
                         android:clickable="false"
-                        android:scaleType="fitCenter" />
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/logo_color" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="30dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="30dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20dp"
+                        android:text="Sign in to order Medicine, Diagnostics and access Health Wallet"
                         android:textAlignment="center"
-                        android:text="Sign in to order Medicine, Diagnostics and access Health Wallet"/>
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="1"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:orientation="vertical"
                 android:padding="20dp"
-                android:layout_weight="2">
+                android:weightSum="1">
 
                 <!--  Email Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/etEmail"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="0dp">
+
+                    <EditText
+                        android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
+                        android:drawableRight="@drawable/ic_phone"
                         android:hint="Enter Email / Mobile Number"
-                        android:drawableRight="@drawable/ic_phone"/>
+                        android:inputType="textEmailAddress" />
                 </android.support.design.widget.TextInputLayout>
 
                 <!--  Password Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/etPass"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="0dp">
+
+                    <EditText
+                        android:id="@+id/etPass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword"
+                        android:drawableRight="@drawable/ic_password"
                         android:hint="Enter Password"
-                        android:drawableRight="@drawable/ic_password"/>
+                        android:inputType="textPassword" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -100,13 +106,13 @@
                     android:id="@+id/btnLogin"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
                     android:layout_marginBottom="24dp"
-                    android:padding="12dp"
+                    android:layout_marginTop="24dp"
                     android:background="@color/colorPrimaryDark"
-                    android:textColor="#FFF"
+                    android:onClick="login"
+                    android:padding="12dp"
                     android:text="Login"
-                    android:onClick="login"/>
+                    android:textColor="#FFF" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -116,11 +122,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="2dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
                         android:layout_marginRight="4dp"
-                        android:background="@color/colorPrimary">
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimary"
+                        android:orientation="vertical"
+                        android:padding="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -128,14 +134,15 @@
                             android:background="#FFF"
                             android:padding="12dp">
 
-                            <TextView android:id="@+id/btnReg"
+                            <TextView
+                                android:id="@+id/btnReg"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:text="New, Sign Up"
                                 android:gravity="center"
+                                android:onClick="register"
+                                android:text="New, Sign Up"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="14dip"
-                                android:onClick="register"/>
+                                android:textSize="14dip" />
 
                         </LinearLayout>
 
@@ -144,11 +151,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="2dp"
-                        android:layout_weight="1"
                         android:layout_marginLeft="4dp"
+                        android:layout_weight="1"
+                        android:background="#D80000"
                         android:orientation="vertical"
-                        android:background="#D80000">
+                        android:padding="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -156,14 +163,15 @@
                             android:background="#FFF"
                             android:padding="12dp">
 
-                            <TextView android:id="@+id/btnForgotPass"
+                            <TextView
+                                android:id="@+id/btnForgotPass"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:onClick="register"
                                 android:text="Forgot Password ?"
                                 android:textColor="#D80000"
-                                android:gravity="center"
-                                android:textSize="14dip"
-                                android:onClick="register"/>
+                                android:textSize="14dip" />
 
                         </LinearLayout>
 
@@ -173,11 +181,10 @@
                 </LinearLayout>
 
 
-
-
             </LinearLayout>
 
         </LinearLayout>
+
 
     </ScrollView>
 
