@@ -1,6 +1,7 @@
 package in.stallats.ecuris.Common;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import in.stallats.ecuris.MainActivity;
 import in.stallats.ecuris.R;
@@ -39,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     Session session;
     private ProgressDialog progressDialog;
     ConnectionDetector cd;
+    final Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +66,34 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         etPass = (EditText) findViewById(R.id.etPass);
         etDob = (EditText) findViewById(R.id.etDob);
 
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+        };
+
+        etDob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                new DatePickerDialog(RegisterActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
         session = new Session(this);
 
         reg.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd-MM-yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        etDob.setText(sdf.format(myCalendar.getTime()));
     }
 
     @Override

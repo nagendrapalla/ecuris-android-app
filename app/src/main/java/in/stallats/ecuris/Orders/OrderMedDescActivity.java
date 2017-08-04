@@ -112,8 +112,9 @@ public class OrderMedDescActivity extends AppCompatActivity {
                                     TextView med_desc_order_contact = (TextView) findViewById(R.id.med_desc_order_contact);
 
                                     TextView med_desc_order_per_req_text = (TextView) findViewById(R.id.med_desc_order_per_req_text);
-
+                                    TextView med_desc_pincode_text = (TextView) findViewById(R.id.med_desc_pincode);
                                     CardView med_desc_order_presc_status = (CardView) findViewById(R.id.med_desc_order_presc_status);
+
 
                                     int id = xx.getInt("id");
                                     String user_id = xx.getString("user_id");
@@ -126,12 +127,14 @@ public class OrderMedDescActivity extends AppCompatActivity {
                                     String contact_address = xx.getString("contact_address");
                                     String contact_person = xx.getString("contact_person");
                                     String contact_number = xx.getString("contact_number");
+                                    String pincode = xx.getString("pincode");
 
                                     med_desc_order_id.setText(corder_id);
                                     med_desc_order_option.setText(pres_mode);
                                     med_desc_order_selected_address.setText(contact_address);
                                     med_desc_order_contact.setText(contact_person + " - " + contact_number);
                                     med_desc_order_per_req_text.setText(manual_requirements);
+                                    med_desc_pincode_text.setText(pincode);
 
                                     if(Integer.parseInt(status) == 0){
                                         med_desc_order_status.setText("Vendor Approval Pending");

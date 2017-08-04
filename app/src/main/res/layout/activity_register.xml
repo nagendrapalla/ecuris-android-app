@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     tools:context=".Common.RegisterActivity"
     android:background="@color/colorPrimary"
     android:padding="10dp"
@@ -138,6 +139,13 @@
                         android:hint="Date of Birth (28-08-1990)"
                         android:drawableRight="@drawable/ic_calander"/>
                 </android.support.design.widget.TextInputLayout>
+
+                <!--<EditText-->
+                    <!--android:id="@+id/etDob"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:drawableRight="@drawable/ic_calander"-->
+                    <!--android:hint="Date of Birth"/>-->
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/btnReg"

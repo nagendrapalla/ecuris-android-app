@@ -95,10 +95,18 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                                     TextView get_address_text_address = (TextView) view.findViewById(R.id.get_address_text_address);
 
                                     TextView dtxt = (TextView) view.findViewById(R.id.get_address_delete);
-                                    //ImageView dtxt = (ImageView) view.findViewById(R.id.get_address_delete);
+                                    TextView dted = (TextView) view.findViewById(R.id.get_address_edit);
 
                                     final String addr_id = xx.getString("id");
                                     final String addr_title = xx.getString("address_type");
+
+                                    dted.setOnClickListener(new TextView.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Toast.makeText(getApplicationContext(),  "Edit Clicked", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
 
                                     dtxt.setOnClickListener(new TextView.OnClickListener(){
                                         @Override

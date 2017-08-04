@@ -50,6 +50,7 @@ public class MedicineAddress extends AppCompatActivity implements View.OnClickLi
     String selectedRadio;
     String manualRequ, presc_status;
     int presc_num = 1;
+    String pincode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class MedicineAddress extends AppCompatActivity implements View.OnClickLi
 
         TextView txtxpincode = (TextView) findViewById(R.id.txtpincode);
 
-        String pincode = session.getPincode();
+        pincode = session.getPincode();
         if (pincode == null) {
             txtxpincode.setText("Pincode: ----");
         } else {
@@ -202,6 +203,7 @@ public class MedicineAddress extends AppCompatActivity implements View.OnClickLi
                 billing_info.addProperty("order_id", order_id);
                 billing_info.addProperty("address_id", address.get("address_id"));
                 billing_info.addProperty("user_id", id);
+                billing_info.addProperty("pincode", pincode);
                 billing_info.addProperty("prescrition", presc_num);
                 billing_info.addProperty("pres_mode", selectedRadio);
                 billing_info.addProperty("status", 0);

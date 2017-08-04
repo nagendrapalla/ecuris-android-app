@@ -35,6 +35,7 @@ public class BillingActivity extends AppCompatActivity implements View.OnClickLi
     static SecureRandom rnd = new SecureRandom();
     float tot_price = 0, shipping = 0, tax_rate = 10;
     int tot_items = 0;
+    String pincode;
 
     HashMap<String, String> user;
     HashMap<String, String> address;
@@ -71,7 +72,8 @@ public class BillingActivity extends AppCompatActivity implements View.OnClickLi
         patient = session.getPatient();
         avail = session.getAvailTime();
 
-        String pincode = session.getPincode();
+        pincode = session.getPincode();
+
         if (pincode == null) {
             txtxpincode.setText("Pincode: ----");
         } else {
@@ -288,6 +290,7 @@ public class BillingActivity extends AppCompatActivity implements View.OnClickLi
                                     billing_info.addProperty("order_id", order_id);
                                     billing_info.addProperty("address_id", address.get("address_id"));
                                     billing_info.addProperty("avaialable_date_n_time", avail.get("avail_date") + " - " + avail.get("avail_time"));
+                                    billing_info.addProperty("pincode", pincode);
                                     billing_info.addProperty("patient_id", patient.get("patient_id"));
                                     billing_info.addProperty("payment_mode", "COD");
                                     billing_info.addProperty("payment_status", 0);

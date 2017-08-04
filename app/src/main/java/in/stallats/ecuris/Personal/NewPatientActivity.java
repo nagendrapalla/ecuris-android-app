@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
@@ -27,6 +29,8 @@ public class NewPatientActivity extends AppCompatActivity implements View.OnClic
     private Session session;
     String id;
     boolean act;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +41,18 @@ public class NewPatientActivity extends AppCompatActivity implements View.OnClic
         HashMap<String, String> user = session.getUserDetails();
         id = user.get("id");
 
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
         login = (Button) findViewById(R.id.pt_add);
         login.setOnClickListener(this);
 
         pt_name = (EditText) findViewById(R.id.pt_name);
         pt_age = (EditText) findViewById(R.id.pt_age);
-        pt_gender = (EditText) findViewById(R.id.pt_gender);
+        //pt_gender = (EditText) findViewById(R.id.pt_gender);
         act = getIntent().getBooleanExtra("value", false);
+
+
+
     }
 
     @Override
@@ -80,14 +89,12 @@ public class NewPatientActivity extends AppCompatActivity implements View.OnClic
     public void add() {
         String pt_name_s = pt_name.getText().toString();
         String pt_age_s = pt_age.getText().toString();
-        String pt_gender_s = pt_gender.getText().toString();
+        //String pt_gender_s = pt_gender.getText().toString();
 
         if (pt_name_s.isEmpty()) {
             displayToast("Enter Patient Name");
         } else if (pt_age_s.isEmpty()) {
             displayToast("Enter Patient Age");
-        } else if (pt_age_s.isEmpty()) {
-            displayToast("Enter Patient Gender");
         } else {
             logincheck();
         }
@@ -99,11 +106,15 @@ public class NewPatientActivity extends AppCompatActivity implements View.OnClic
         progressDialog.setMessage("Patient Adding...");
         progressDialog.show();
 
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+        radioButton = (RadioButton) findViewById(selectedId);
+
+        //Toast.makeText(getApplicationContext(), radioButton.getText(), Toast.LENGTH_SHORT).show();
 
         JsonObject json = new JsonObject();
         json.addProperty("name", pt_name.getText().toString());
         json.addProperty("age", pt_age.getText().toString());
-        json.addProperty("gender", pt_gender.getText().toString());
+        json.addProperty("gender", radioButton.getText().toString());
         json.addProperty("user_id", id.toString());
 
         Ion.with(this)
