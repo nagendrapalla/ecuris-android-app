@@ -14,6 +14,9 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import in.stallats.ecuris.R;
@@ -27,6 +30,8 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
     private Session session;
     String id;
     boolean act;
+    String addr_id = "";
+    String address_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +42,45 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         HashMap<String, String> user = session.getUserDetails();
         id = user.get("id");
 
-        login = (Button) findViewById(R.id.ad_address);
-        login.setOnClickListener(this);
-
         ad_title = (EditText) findViewById(R.id.ad_title);
         ad_full_name = (EditText) findViewById(R.id.ad_full_name);
         ad_mobile_number = (EditText) findViewById(R.id.ad_mobile_number);
-        //ad_pincode = (EditText) findViewById(R.id.ad_pincode);
-        //ad_pincode.setText(session.getPincode());
-        //ad_pincode.setEnabled(false);
         ad_building = (EditText) findViewById(R.id.ad_building);
         ad_street = (EditText) findViewById(R.id.ad_street);
         ad_landmark = (EditText) findViewById(R.id.ad_landmark);
         ad_city = (EditText) findViewById(R.id.ad_city);
         ad_state = (EditText) findViewById(R.id.ad_state);
 
+        login = (Button) findViewById(R.id.ad_address);
+
         act = getIntent().getBooleanExtra("value", false);
+        addr_id = getIntent().getStringExtra("addr_id");
+
+        if (addr_id == null) {
+            //displayToast("New Address");
+        } else {
+            try {
+                JSONObject json_object = new JSONObject(addr_id);
+
+                ad_title.setText(json_object.getString("address_type"));
+                ad_full_name.setText(json_object.getString("full_name"));
+                ad_mobile_number.setText(json_object.getString("mobile_number"));
+                ad_building.setText(json_object.getString("building"));
+                ad_street.setText(json_object.getString("street"));
+                ad_landmark.setText(json_object.getString("landmark"));
+                ad_city.setText(json_object.getString("city"));
+                ad_state.setText(json_object.getString("state"));
+
+                address_id = json_object.getString("id");
+
+                login.setText("Update Address");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        login.setOnClickListener(this);
 
     }
 
@@ -121,6 +149,13 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
         json.addProperty("state", ad_state.getText().toString());
         json.addProperty("user_id", id.toString());
 
+        if (addr_id == null) {
+            json.addProperty("mode", 0);
+        }else{
+            json.addProperty("mode", 1);
+            json.addProperty("addr_id", address_id);
+        }
+
         Ion.with(this)
                 .load("POST", "http://portal.ecuris.in/api/address/")
                 .setJsonObjectBody(json)
@@ -132,12 +167,12 @@ public class NewAddressActivity extends AppCompatActivity implements View.OnClic
                             Toast.makeText(getApplicationContext(), "Sorry! Something went wrong", Toast.LENGTH_SHORT).show();
                         } else {
                             progressDialog.dismiss();
-                            //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), AddressActivity.class).putExtra("value", act));
                             finish();
                         }
                     }
                 });
+
     }
 
     private void displayToast(String message) {

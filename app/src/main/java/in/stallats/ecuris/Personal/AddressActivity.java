@@ -21,6 +21,8 @@ import com.koushikdutta.ion.Ion;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import in.stallats.ecuris.BillingActivity;
@@ -90,7 +92,6 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                                     final JSONObject xx = new JSONObject(x);
 
                                     LinearLayout child_address = (LinearLayout) view.findViewById(R.id.child_address);
-                                    //TextView get_address_text_name = (TextView) view.findViewById(R.id.get_address_text_name);
                                     TextView get_address_text_title = (TextView) view.findViewById(R.id.get_address_text_title);
                                     TextView get_address_text_address = (TextView) view.findViewById(R.id.get_address_text_address);
 
@@ -100,15 +101,7 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                                     final String addr_id = xx.getString("id");
                                     final String addr_title = xx.getString("address_type");
 
-                                    dted.setOnClickListener(new TextView.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            Toast.makeText(getApplicationContext(),  "Edit Clicked", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-
-
-                                    dtxt.setOnClickListener(new TextView.OnClickListener(){
+                                    dtxt.setOnClickListener(new TextView.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
                                             Ion.with(getApplicationContext())
@@ -120,7 +113,7 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                                                             if (e != null) {
 
                                                             } else {
-                                                                Toast.makeText(getApplicationContext(),  addr_title + " removed", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(getApplicationContext(), addr_title + " removed", Toast.LENGTH_SHORT).show();
                                                                 finish();
                                                                 startActivity(getIntent());
                                                             }
@@ -131,7 +124,14 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
 
                                     //get_address_text_name.setText(xx.getString("full_name"));
                                     get_address_text_title.setText(xx.getString("address_type"));
-                                    get_address_text_address.setText(xx.getString("building")+", "+xx.getString("street")+", "+xx.getString("landmark")+", "+xx.getString("city")+", "+xx.getString("state"));
+                                    get_address_text_address.setText(xx.getString("building") + ", " + xx.getString("street") + ", " + xx.getString("landmark") + ", " + xx.getString("city") + ", " + xx.getString("state"));
+
+                                    dted.setOnClickListener(new TextView.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            startActivity(new Intent(getApplicationContext(), NewAddressActivity.class).putExtra("value", act).putExtra("addr_id", xx.toString()));
+                                        }
+                                    });
 
                                     if (act) {
                                         child_address.setOnClickListener(new LinearLayout.OnClickListener() {
@@ -140,15 +140,15 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
                                                 try {
                                                     String id = xx.getString("id");
                                                     String title = xx.getString("address_type");
-                                                    String address = xx.getString("building")+", "+xx.getString("street")+", "+xx.getString("landmark")+", "+xx.getString("city")+", "+xx.getString("state");
+                                                    String address = xx.getString("building") + ", " + xx.getString("street") + ", " + xx.getString("landmark") + ", " + xx.getString("city") + ", " + xx.getString("state");
                                                     Boolean address_mode = true;
                                                     session.set_address(id, title, address, address_mode);
                                                     Toast.makeText(getApplicationContext(), "Address : " + title + " Selected", Toast.LENGTH_SHORT).show();
 
-                                                    if(med_order){
+                                                    if (med_order) {
                                                         startActivity(new Intent(getApplicationContext(), MedicineAddress.class));
                                                         finish();
-                                                    }else{
+                                                    } else {
                                                         startActivity(new Intent(getApplicationContext(), BillingActivity.class));
                                                         finish();
                                                     }
