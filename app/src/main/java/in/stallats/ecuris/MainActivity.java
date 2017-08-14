@@ -1,6 +1,7 @@
 package in.stallats.ecuris;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -12,25 +13,35 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -41,7 +52,10 @@ import in.stallats.ecuris.Personal.ReferActivity;
 import in.stallats.ecuris.Supporting.AbsRuntimePermissions;
 import in.stallats.ecuris.Supporting.BagdeDrawable;
 import in.stallats.ecuris.Supporting.ConnectionDetector;
+import in.stallats.ecuris.Supporting.SearchAdapter;
 import in.stallats.ecuris.Supporting.Session;
+import in.stallats.ecuris.Supporting.SharedPreference;
+import in.stallats.ecuris.Supporting.Utils;
 
 public class MainActivity extends AbsRuntimePermissions implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -49,10 +63,12 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
     Session session;
     private static final int REQUEST_PERMISSION = 10;
     String cart_cnt_num = "0";
-
-    MaterialSearchView searchView;
+    private ArrayList<String> mCountries;
+    EditText etEmail;
     String[] toppings = {};
     List<String> list;
+
+    Dialog toolbarSearchDialog;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -91,7 +107,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
 
         session = new Session(this);
         String appPincode = session.getPincode();
-        if(appPincode == null){
+        if (appPincode == null) {
             startActivity(new Intent(this, AreaDetectorActivity.class).putExtra("value", false));
         }
 
@@ -103,7 +119,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        
+
         getImages();
 
         CardView home_med = (CardView) findViewById(R.id.home_med);
@@ -118,37 +134,46 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         home_help.setOnClickListener(this);
         home_ord.setOnClickListener(this);
 
+        ArrayList<String> titles_arr = new ArrayList<String>();
 
-        searchView = (MaterialSearchView) findViewById(R.id.search_view);
-        searchView.setVoiceSearch(false);
-        searchView.setEllipsize(true);
-        searchView.setCursorDrawable(R.drawable.custom_cursor);
-
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                //Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class).putExtra("qry", query));
-                return false;
+        try {
+            JsonArray test_json = Ion.with(this).load("http://portal.ecuris.in/api/tests_all/").asJsonArray().get();
+            for (int i = 0; i < test_json.size(); i++) {
+                String x = test_json.get(i).toString();
+                try {
+                    final JSONObject xx = new JSONObject(x);
+                    titles_arr.add(xx.getString("title"));
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
             }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Do some magic
-                return false;
-            }
-        });
-
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                searchView.showSearch(true);
-                searchView.setVisibility(View.VISIBLE);
+            JsonArray package_json = Ion.with(this).load("http://portal.ecuris.in/api/packages/").asJsonArray().get();
+            for (int i = 0; i < package_json.size(); i++) {
+                String x = package_json.get(i).toString();
+                try {
+                    final JSONObject xx = new JSONObject(x);
+                    titles_arr.add(xx.getString("package_title"));
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
             }
 
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        toppings = new String[titles_arr.size()];
+        toppings = titles_arr.toArray(toppings);
+
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        etEmail.setInputType(InputType.TYPE_NULL);
+        etEmail.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSearchViewClosed() {
-                //Do some magic
+            public void onClick(View v) {
+                loadToolBarSearch();
             }
         });
 
@@ -176,11 +201,16 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
             super.onBackPressed();
         }
 
-        if (searchView.isSearchOpen()) {
-            searchView.closeSearch();
-        } else {
+        if(toolbarSearchDialog == null){
             super.onBackPressed();
+        }else{
+            if(toolbarSearchDialog.isShowing()){
+                toolbarSearchDialog.dismiss();
+            }else{
+                super.onBackPressed();
+            }
         }
+
     }
 
     @Override
@@ -218,9 +248,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
         setBadgeCount(this, icon, cart_cnt_num);
 
-        MenuItem item = menu.findItem(R.id.nav_search);
-        searchView.setMenuItem(item);
-
         return true;
     }
 
@@ -229,7 +256,7 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.nav_cart:
                 startActivity(new Intent(this, CartActivity.class));
                 break;
@@ -322,4 +349,109 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         icon.mutate();
         icon.setDrawableByLayerId(R.id.ic_badge, badge);
     }
+
+    public void loadToolBarSearch() {
+        ArrayList<String> countryStored = SharedPreference.loadList(MainActivity.this, Utils.PREFS_NAME, Utils.KEY_COUNTRIES);
+
+        View view = MainActivity.this.getLayoutInflater().inflate(R.layout.view_toolbar_search, null);
+        LinearLayout parentToolbarSearch = (LinearLayout) view.findViewById(R.id.parent_toolbar_search);
+        ImageView imgToolBack = (ImageView) view.findViewById(R.id.img_tool_back);
+        final EditText edtToolSearch = (EditText) view.findViewById(R.id.edt_tool_search);
+        final ListView listSearch = (ListView) view.findViewById(R.id.list_search);
+        final TextView txtEmpty = (TextView) view.findViewById(R.id.txt_empty);
+
+        Utils.setListViewHeightBasedOnChildren(listSearch);
+
+        edtToolSearch.setHint("Ex: Crocin, Lipid Profile");
+
+        toolbarSearchDialog = new Dialog(MainActivity.this, R.style.MaterialSearch);
+        toolbarSearchDialog.setContentView(view);
+        toolbarSearchDialog.setCancelable(true);
+        toolbarSearchDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        toolbarSearchDialog.getWindow().setGravity(Gravity.BOTTOM);
+        toolbarSearchDialog.show();
+
+        toolbarSearchDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        countryStored = (countryStored != null && countryStored.size() > 0) ? countryStored : new ArrayList<String>();
+        final SearchAdapter searchAdapter = new SearchAdapter(MainActivity.this, countryStored, false);
+
+        listSearch.setVisibility(View.VISIBLE);
+        listSearch.setAdapter(searchAdapter);
+
+        listSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String country = String.valueOf(adapterView.getItemAtPosition(position));
+                SharedPreference.addList(MainActivity.this, Utils.PREFS_NAME, Utils.KEY_COUNTRIES, country);
+                startActivity(new Intent(getApplicationContext(), SearchActivity.class).putExtra("qry", country));
+            }
+        });
+
+        edtToolSearch.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    String qry = edtToolSearch.getText().toString();
+                    startActivity(new Intent(getApplicationContext(), SearchActivity.class).putExtra("qry", qry));
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        edtToolSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                String[] country = toppings;
+                mCountries = new ArrayList<String>(Arrays.asList(country));
+                listSearch.setVisibility(View.VISIBLE);
+                searchAdapter.updateList(mCountries, true);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ArrayList<String> filterList = new ArrayList<String>();
+                boolean isNodata = false;
+                if (s.length() > 0) {
+                    for (int i = 0; i < mCountries.size(); i++) {
+                        if (mCountries.get(i).toLowerCase().startsWith(s.toString().trim().toLowerCase())) {
+                            filterList.add(mCountries.get(i));
+                            listSearch.setVisibility(View.VISIBLE);
+                            searchAdapter.updateList(filterList, true);
+                            isNodata = true;
+                        }
+                    }
+                    if (!isNodata) {
+                        listSearch.setVisibility(View.GONE);
+                        txtEmpty.setVisibility(View.VISIBLE);
+                        txtEmpty.setText("No data found");
+                    }
+                } else {
+                    listSearch.setVisibility(View.GONE);
+                    txtEmpty.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        imgToolBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toolbarSearchDialog.dismiss();
+            }
+        });
+
+    }
+
+    private void displayToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
 }

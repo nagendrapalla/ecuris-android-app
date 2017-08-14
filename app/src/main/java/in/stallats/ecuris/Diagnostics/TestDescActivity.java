@@ -203,9 +203,6 @@ public class TestDescActivity extends AppCompatActivity implements View.OnClickL
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
         setBadgeCount(this, icon, cart_cnt_num);
 
-        MenuItem searchItem = menu.findItem(R.id.nav_search);
-        searchItem.setVisible(false);
-
         return true;
     }
 

@@ -10,6 +10,8 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_height="wrap_content">
 
         <FrameLayout
@@ -41,14 +43,19 @@
 
             </android.support.v7.widget.Toolbar>
 
-
-            <com.miguelcatalan.materialsearchview.MaterialSearchView
-                android:id="@+id/search_view"
-                style="@style/MaterialSearchViewStyle"
-                android:layout_width="match_parent"
-                android:visibility="visible"
-                android:layout_height="wrap_content"/>
         </FrameLayout>
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="10dp"
+            android:background="#FFF"
+            android:layout_margin="5dp"
+            android:drawableLeft="@drawable/ic_magnify_grey600_24dp"
+            android:drawablePadding="10dp"
+            android:hint="Search Diagnostics, Medicines, ..."
+            android:inputType="textEmailAddress" />
 
     </android.support.design.widget.AppBarLayout>
 
