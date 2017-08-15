@@ -59,7 +59,6 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
-    compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'org.immutables:gson:2.1.0.alpha'
     testCompile 'junit:junit:4.12'
 }
