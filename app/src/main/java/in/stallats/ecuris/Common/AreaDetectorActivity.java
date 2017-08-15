@@ -3,6 +3,7 @@ package in.stallats.ecuris.Common;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -41,10 +42,10 @@ public class AreaDetectorActivity extends AppCompatActivity implements View.OnCl
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        LinearLayout btn = (LinearLayout) findViewById(R.id.btnStatus);
+        AppCompatButton btn = (AppCompatButton) findViewById(R.id.btnStatus);
         btn.setOnClickListener(this);
 
-        LinearLayout skipbtn = (LinearLayout) findViewById(R.id.btnSkip);
+        AppCompatButton skipbtn = (AppCompatButton) findViewById(R.id.btnSkip);
         skipbtn.setOnClickListener(this);
     }
 

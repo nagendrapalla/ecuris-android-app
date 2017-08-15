@@ -13,6 +13,7 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:indeterminate="true" />
     </RelativeLayout>
 
@@ -26,6 +27,8 @@
         <ImageView
             android:id="@+id/cart_image"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:layout_height="wrap_content"
             android:src="@mipmap/empty_cart" />
 
@@ -33,15 +36,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cart_image"
+            android:textColor="#333"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:text="Your cart is an empty" />
+            android:text="Oooops It's Empty" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cart_image"
+            android:textColor="#777"
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:textStyle="normal"
+            android:layout_marginTop="20dp"
+            android:text="Go back and add new items" />
 
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/cart_list"
+        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"

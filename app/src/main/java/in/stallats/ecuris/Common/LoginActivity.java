@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button login;
     private EditText etEmail, etPass;
     private Session session;
-    private TextView register, btnForgotPass;
+    private AppCompatButton register, btnForgotPass;
     private ProgressDialog progressDialog;
     ConnectionDetector cd;
 
@@ -51,10 +52,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         session = new Session(this);
         login = (Button) findViewById(R.id.btnLogin);
-        register = (TextView) findViewById(R.id.btnReg);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPass = (EditText) findViewById(R.id.etPass);
-        btnForgotPass = (TextView) findViewById(R.id.btnForgotPass);
+
+        register = (AppCompatButton) findViewById(R.id.btnReg);
+        btnForgotPass = (AppCompatButton) findViewById(R.id.btnForgotPass);
 
         login.setOnClickListener(this);
         register.setOnClickListener(this);
