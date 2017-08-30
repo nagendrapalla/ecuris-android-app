@@ -60,7 +60,7 @@ public class SingleLabTestsActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (e != null) {
-                            findViewById(R.id.loadingPanel2).setVisibility(View.GONE);
+                            findViewById(R.id.loadingPanel2).setVisibility(View.VISIBLE);
                             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                         } else {
                             findViewById(R.id.loadingPanel2).setVisibility(View.GONE);

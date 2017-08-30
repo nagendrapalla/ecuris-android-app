@@ -2,6 +2,7 @@ package in.stallats.ecuris.Diagnostics;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -11,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
@@ -27,6 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import in.stallats.ecuris.Adapters.PackageTestListAdapter;
 import in.stallats.ecuris.Adapters.Tests;
@@ -47,6 +51,8 @@ public class PackageDescActivity extends AppCompatActivity implements View.OnCli
     private List<Tests> testList;
     String cart_cnt_num;
     String cart_price, cart_product_id, cart_product_name, cart_quantity, cart_data, cart_module, cart_vendor_id;
+    String id;
+    int btnStatus = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +60,14 @@ public class PackageDescActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_package_desc);
 
         session = new Session(this);
+        HashMap<String, String> user = session.getUserDetails();
+        id = user.get("id");
 
         HashMap<String, String> cart_cnt = session.getCartCount();
         cart_cnt_num = cart_cnt.get("cart_count");
 
-        findViewById(R.id.package_add_to_cart).setOnClickListener(this);
+        final Button package_add_to_cart = (Button) findViewById(R.id.package_add_to_cart);
+
 
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
@@ -118,6 +127,30 @@ public class PackageDescActivity extends AppCompatActivity implements View.OnCli
                                 package_desc_text.setText(desc);
                                 individual_tests_count_text.setText("Test Included: " + tests_length);
 
+                                try {
+                                    JsonArray package_json = Ion.with(getApplicationContext()).load("http://portal.ecuris.in/api/cart/" + id).asJsonArray().get();
+                                    for (int i = 0; i < package_json.size(); i++) {
+                                        String x1 = package_json.get(i).toString();
+                                        final JSONObject xx1 = new JSONObject(x1);
+                                        if (cart_product_id.equals(xx1.getString("product_id"))) {
+                                            btnStatus = 1;
+                                        }
+                                    }
+                                } catch (InterruptedException ex) {
+                                    ex.printStackTrace();
+                                } catch (ExecutionException ex) {
+                                    ex.printStackTrace();
+                                } catch (JSONException ex) {
+                                    ex.printStackTrace();
+                                }
+
+                                if (btnStatus == 1) {
+                                    package_add_to_cart.setText("Proceed to Cart");
+                                    package_add_to_cart.setTextColor(Color.parseColor("#FFFFFF"));
+                                    package_add_to_cart.setBackgroundColor(Color.parseColor("#FF8F00"));
+                                }
+
+
                                 listView = (ListView) findViewById(R.id.tests_list);
                                 testList = new ArrayList<>();
 
@@ -142,8 +175,6 @@ public class PackageDescActivity extends AppCompatActivity implements View.OnCli
                                         Intent i2 = new Intent(getApplicationContext(), TestDescActivity.class);
                                         i2.putExtra("slug", testList.get(i).getTestslug());
                                         i2.putExtra("test_name", testList.get(i).getTestname());
-                                        //startActivity(i2);
-                                        //Toast.makeText(getActivity(), testList.get(i).getTestslug(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -155,6 +186,8 @@ public class PackageDescActivity extends AppCompatActivity implements View.OnCli
                         }
                     }
                 });
+
+        package_add_to_cart.setOnClickListener(this);
 
     }
 
@@ -183,10 +216,9 @@ public class PackageDescActivity extends AppCompatActivity implements View.OnCli
             case R.id.package_add_to_cart:
                 if (!session.loggedin()) {
                     startActivity(new Intent(this, LoginActivity.class));
+                } else if (btnStatus == 1) {
+                    startActivity(new Intent(this, CartActivity.class));
                 } else {
-                    HashMap<String, String> user = session.getUserDetails();
-                    final String id = user.get("id");
-
                     JsonObject json = new JsonObject();
                     json.addProperty("user_id", id);
                     json.addProperty("price", cart_price);

@@ -58,18 +58,17 @@ import in.stallats.ecuris.Supporting.SharedPreference;
 import in.stallats.ecuris.Supporting.Utils;
 
 public class MainActivity extends AbsRuntimePermissions implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-
     ConnectionDetector cd;
     Session session;
-    private static final int REQUEST_PERMISSION = 10;
-    String cart_cnt_num = "0";
-    private ArrayList<String> mCountries;
     EditText etEmail;
-    String[] toppings = {};
     List<String> list;
 
+    String cart_cnt_num = "0";
+    String[] toppings = {};
     Dialog toolbarSearchDialog;
 
+    private static final int REQUEST_PERMISSION = 10;
+    private ArrayList<String> mCountries;
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -179,7 +178,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
 
     }
 
-
     @Override
     public void onPermissionsGranted(int requestCode) {
 
@@ -250,7 +248,6 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
 
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
