@@ -323,10 +323,41 @@ public class MainActivity extends AbsRuntimePermissions implements NavigationVie
         final ImageView offer_image_7 = (ImageView) findViewById(R.id.offer_img_7);
         final ImageView offer_image_8 = (ImageView) findViewById(R.id.offer_img_8);
 
-        Picasso.with(getApplicationContext()).load("http://discount-coupon-codes.upto75.com/uploadimages/coupons/9986-MedFinder_Banner1.jpg").into(offer_image_1);
-        Picasso.with(getApplicationContext()).load("https://shopnix.in/blog/wp-content/uploads/2015/10/online-medicine-store-1.jpg").into(offer_image_2);
-        Picasso.with(getApplicationContext()).load("http://discount-coupon-codes.upto75.com/uploadimages/coupons/10814-Magnus_Diagnostic_Centre_Bengaluru_Coupon_2.jpg").into(offer_image_3);
-        Picasso.with(getApplicationContext()).load("https://mddirectonline.com/images/banner1.jpg").into(offer_image_4);
+        try {
+
+            JsonArray offers_json = Ion.with(this).load("http://portal.ecuris.in/api/offers/").asJsonArray().get();
+
+            for (int i = 0; i < offers_json.size(); i++) {
+                String x = offers_json.get(i).toString();
+                try {
+                    final JSONObject xx = new JSONObject(x);
+                    if(i == 0){
+                        Picasso.with(getApplicationContext()).load("http://portal.ecuris.in/assets/uploads/offers/" + xx.getString("offer_image")).into(offer_image_1);
+                    }else if(i == 1){
+                        Picasso.with(getApplicationContext()).load("http://portal.ecuris.in/assets/uploads/offers/" + xx.getString("offer_image")).into(offer_image_2);
+                    }else if(i == 2){
+                        Picasso.with(getApplicationContext()).load("http://portal.ecuris.in/assets/uploads/offers/" + xx.getString("offer_image")).into(offer_image_3);
+                    }else if(i == 3){
+                        Picasso.with(getApplicationContext()).load("http://portal.ecuris.in/assets/uploads/offers/" + xx.getString("offer_image")).into(offer_image_4);
+                    }else{
+                        break;
+                    }
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+//        Picasso.with(getApplicationContext()).load("http://discount-coupon-codes.upto75.com/uploadimages/coupons/9986-MedFinder_Banner1.jpg").into(offer_image_1);
+//        Picasso.with(getApplicationContext()).load("https://shopnix.in/blog/wp-content/uploads/2015/10/online-medicine-store-1.jpg").into(offer_image_2);
+//        Picasso.with(getApplicationContext()).load("http://discount-coupon-codes.upto75.com/uploadimages/coupons/10814-Magnus_Diagnostic_Centre_Bengaluru_Coupon_2.jpg").into(offer_image_3);
+//        Picasso.with(getApplicationContext()).load("https://mddirectonline.com/images/banner1.jpg").into(offer_image_4);
 
         Picasso.with(getApplicationContext()).load("http://www.jaminthompson.com/blog/wp-content/uploads/2010/11/Oxygen_spread1.jpg").into(offer_image_5);
         Picasso.with(getApplicationContext()).load("http://amyfournier.com/wp-content/uploads/Womens-Health-and-Fitness-Mag-Cover-Feature-Article-Feb-2014-Copy_Page_1.jpg").into(offer_image_6);

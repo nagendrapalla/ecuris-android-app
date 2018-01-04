@@ -75,8 +75,7 @@
                                 android:text="Medicine &amp; OTC"
                                 android:id="@+id/textView19"
                                 android:textColor="#333333"
-                                android:capitalize="characters"
-                                android:textSize="13dp"
+                                android:textSize="10dp"
                                 android:clickable="false" />
 
                         </LinearLayout>
@@ -90,6 +89,7 @@
                         android:layout_weight="1"
                         android:background="#FFF"
                         android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/home_diag">
 
@@ -118,22 +118,12 @@
                                 android:text="DIAGNOSTICS"
                                 android:id="@+id/textView14"
                                 android:textColor="#333333"
-                                android:capitalize="characters"
-                                android:textSize="13dp"
+                                android:textSize="10dp"
                                 android:clickable="false" />
 
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#EFEFEF"
-                    android:padding="2dp">
 
                     <android.support.v7.widget.CardView
                         android:orientation="vertical"
@@ -141,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#FFF"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/home_doct">
 
@@ -170,8 +160,101 @@
                                 android:text="DOCTORS"
                                 android:id="@+id/textView109"
                                 android:textColor="#333333"
-                                android:capitalize="characters"
-                                android:textSize="13dp"
+                                android:textSize="10dp"
+                                android:clickable="false" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#EFEFEF"
+                    android:padding="2dp">
+
+                <!--    <android.support.v7.widget.CardView
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFF"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/home_nri">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:layout_weight="0.8">
+
+                            <ImageButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageButton188"
+                                android:src="@mipmap/home_nri_2"
+                                android:background="#00ffffff"
+                                android:layout_marginBottom="13dp"
+                                android:clickable="false"
+                                android:scaleType="fitCenter" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="NRI SERVICES"
+                                android:id="@+id/textView184"
+                                android:textColor="#333333"
+                                android:textSize="10dp"
+                                android:clickable="false" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>-->
+
+                    <android.support.v7.widget.CardView
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFF"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/home_physio">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:layout_weight="0.8">
+
+                            <ImageButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageButton198"
+                                android:src="@mipmap/physiotherapy"
+                                android:background="#00ffffff"
+                                android:layout_marginBottom="13dp"
+                                android:clickable="false"
+                                android:scaleType="fitCenter" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="PHYSIOTHERAPY"
+                                android:id="@+id/textView194"
+                                android:textColor="#333333"
+                                android:textSize="10dp"
                                 android:clickable="false" />
 
                         </LinearLayout>
@@ -213,15 +296,152 @@
                                 android:text="ORDERS"
                                 android:id="@+id/textView104"
                                 android:textColor="#333333"
-                                android:capitalize="characters"
-                                android:textSize="13dp"
+                                android:textSize="10dp"
                                 android:clickable="false" />
 
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
 
+            <!--        <android.support.v7.widget.CardView
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFF"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/home_tv">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:layout_weight="0.8">
+
+                            <ImageButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageButton178"
+                                android:src="@mipmap/home_tv"
+                                android:background="#00ffffff"
+                                android:layout_marginBottom="13dp"
+                                android:clickable="false"
+                                android:scaleType="fitCenter" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="HEALTH TV"
+                                android:id="@+id/textView174"
+                                android:textColor="#333333"
+                                android:textSize="10dp"
+                                android:clickable="false" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>-->
+
                 </LinearLayout>
+
+               <!-- <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#EFEFEF"
+                    android:padding="2dp">
+
+                    <android.support.v7.widget.CardView
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFF"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/home_wallet">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:layout_weight="0.8">
+
+                            <ImageButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageButton118"
+                                android:src="@mipmap/home_wallet"
+                                android:background="#00ffffff"
+                                android:layout_marginBottom="13dp"
+                                android:clickable="false"
+                                android:scaleType="fitCenter" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="HEALTH WALLET"
+                                android:id="@+id/textView114"
+                                android:textColor="#333333"
+                                android:textSize="10dp"
+                                android:clickable="false" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#FFF"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/home_reminder">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:layout_weight="0.8">
+
+                            <ImageButton
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageButton158"
+                                android:src="@mipmap/home_reminder"
+                                android:background="#00ffffff"
+                                android:layout_marginBottom="13dp"
+                                android:clickable="false"
+                                android:scaleType="fitCenter" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="PHILL REMINDER"
+                                android:id="@+id/textView154"
+                                android:textColor="#333333"
+                                android:textSize="10dp"
+                                android:clickable="false" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+
+                </LinearLayout>-->
 
                 <LinearLayout
                     android:orientation="horizontal"
